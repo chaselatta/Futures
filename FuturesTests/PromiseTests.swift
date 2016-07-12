@@ -115,19 +115,36 @@ class PromiseTests: XCTestCase {
         XCTAssert(called)
     }
     
-//    func testBasicFlatMap() {
-//        let f = Future.value(value: "hello world")
-//        var called = false
-//        
-//        f.flatMap { v -> Future<Int> in
-//            let count = v.components(separatedBy: " ").count
-//            return Future.value(value: count)
-//            }.onSuccess { (count) in
-//                called = true
-//                XCTAssert(count == 2)
-//        }
-//        
-//        XCTAssert(called)
-//    }
+    func testBasicFlatMap() {
+        let p = Promise<String>()
+        var called = false
+        
+        p.flatMap { v -> Future<Int> in
+            let count = v.components(separatedBy: " ").count
+            return Future.value(value: count)
+            }.onSuccess { (count) in
+                called = true
+                XCTAssert(count == 2)
+        }
+        
+        p.succeed(value: "Hello world")
+        XCTAssert(called)
+    }
+    
+    func testCrazyMap() {
+        let p = Promise<Int>()
+        var called = false
+        p
+            .map { String($0) }
+            .map { Int($0)! + 1 }
+            .flatMap { Future.value(value: String($0)) }
+            .map { Int($0)! + 1 }
+            .onSuccess { v in
+                called = true
+                XCTAssertEqual(v, 2)
+        }
+        p.succeed(value: 0)
+        XCTAssert(called)
+    }
     
 }
