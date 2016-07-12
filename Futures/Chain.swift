@@ -9,17 +9,15 @@
 import Foundation
 
 protocol Chainable {
-    
     var parent: Chainable? { get set }
     var child: Chainable? { get set }
-
 }
 
 struct Chain {
     
     private static let accessQueue = DispatchQueue(label: "com.futures.chain-access-queue", attributes: [.serial], target: nil)
     
-    private static func withQueue(f: () -> Void) {
+    private static func withQueue(f: @noescape () -> Void) {
         accessQueue.sync(execute: f)
     }
     
@@ -54,6 +52,17 @@ struct Chain {
             }
             
             f(bottomLink)
+        }
+    }
+    
+    static func descend(link: Chainable, f: (Chainable) -> Void) {
+        withQueue {
+            var link: Chainable? = link
+            
+            while let inner = link {
+                f(inner)
+                link = inner.child
+            }
         }
     }
 }

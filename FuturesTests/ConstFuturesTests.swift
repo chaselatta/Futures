@@ -84,6 +84,18 @@ class ConstFuturesTests: XCTestCase {
         XCTAssertFalse(called)
     }
     
+    func testSuccessCallbackInvoked_MultipleFutures() {
+        var called1 = false
+        var called2 = false
+        
+        let f = Future.value(value: 1)
+        f.onSuccess { _ in called1 = true }
+        f.onSuccess { _ in called2 = true }
+        
+        XCTAssertTrue(called1)
+        XCTAssertTrue(called2)
+    }
+    
     // MARK: Transformations
     
     func testBasicMap() {
@@ -94,6 +106,21 @@ class ConstFuturesTests: XCTestCase {
             .onSuccess { (count) in
                 called = true
                 XCTAssert(count == 2)
+        }
+        
+        XCTAssert(called)
+    }
+    
+    func testBasicFlatMap() {
+        let f = Future.value(value: "hello world")
+        var called = false
+        
+        f.flatMap { v -> Future<Int> in
+            let count = v.components(separatedBy: " ").count
+            return Future.value(value: count)
+        }.onSuccess { (count) in
+            called = true
+            XCTAssert(count == 2)
         }
         
         XCTAssert(called)

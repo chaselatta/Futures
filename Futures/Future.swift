@@ -29,11 +29,11 @@ public enum Result<T> {
 
 public class Future<Element> {
     
-    public class func value(value: Element) -> Future<Element> {
+    public final class func value(value: Element) -> Future<Element> {
         return ConstFuture(result: .satisfied(value))
     }
     
-    public class func error(error: ErrorProtocol) -> Future<Element> {
+    public final class func error(error: ErrorProtocol) -> Future<Element> {
         return ConstFuture(result: .failed(error))
     }
     
@@ -50,12 +50,20 @@ public class Future<Element> {
     
     @discardableResult
     public func onSuccess(f: (Element) -> Void) -> Future {
-        fatalError("onSuccess is an abstract method")
+        return respond {
+            if case .satisfied(let v) = $0 {
+                f(v)
+            }
+        }
     }
     
     @discardableResult
     public func onError(f: (ErrorProtocol) -> ()) -> Future {
-        fatalError("onError is an abstract method")
+        return respond {
+            if case .failed(let e) = $0 {
+                f(e)
+            }
+        }
     }
     
     @discardableResult
@@ -63,23 +71,12 @@ public class Future<Element> {
         fatalError("respond is an abstract method")
     }
     
-    internal func transform<T>(f: (Result<Element>) -> Future<T>) -> Future<T> {
-        fatalError("transform is an abstract method")
-    }
-}
-
-// MARK: Transformations
-extension Future {
-    
     public func map<T>(f: (Element) -> T) -> Future<T> {
-        return transform { result in
-            switch result {
-            case .satisfied(let v):
-                return Future<T>.value(value: f(v))
-            case .failed(let e):
-                return Future<T>.error(error: e)
-            }
-        }
+        fatalError("map is abstract")
+    }
+    
+    public func flatMap<T>(f: (Element) -> Future<T>) -> Future<T> {
+        fatalError("flatMap is abstract")
     }
     
 }

@@ -10,6 +10,7 @@
 		DB4069311D3441260065AA1E /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069301D3441260065AA1E /* Chain.swift */; };
 		DB4069331D3441890065AA1E /* ChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069321D3441890065AA1E /* ChainTests.swift */; };
 		DB4069351D34A6450065AA1E /* ConstFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069341D34A6450065AA1E /* ConstFuture.swift */; };
+		DB4069371D34AF790065AA1E /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069361D34AF790065AA1E /* PromiseTests.swift */; };
 		DB62A65C1D2EF52A00AE25C8 /* Futures.h in Headers */ = {isa = PBXBuildFile; fileRef = DB62A65B1D2EF52A00AE25C8 /* Futures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB62A6631D2EF52A00AE25C8 /* Futures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB62A6581D2EF52A00AE25C8 /* Futures.framework */; };
 		DB62A6681D2EF52A00AE25C8 /* ConstFuturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6671D2EF52A00AE25C8 /* ConstFuturesTests.swift */; };
@@ -31,6 +32,7 @@
 		DB4069301D3441260065AA1E /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 		DB4069321D3441890065AA1E /* ChainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainTests.swift; sourceTree = "<group>"; };
 		DB4069341D34A6450065AA1E /* ConstFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstFuture.swift; sourceTree = "<group>"; };
+		DB4069361D34AF790065AA1E /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
 		DB62A6581D2EF52A00AE25C8 /* Futures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Futures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB62A65B1D2EF52A00AE25C8 /* Futures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Futures.h; sourceTree = "<group>"; };
 		DB62A65D1D2EF52A00AE25C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		DB62A6661D2EF52A00AE25C8 /* FuturesTests */ = {
 			isa = PBXGroup;
 			children = (
+				DB4069361D34AF790065AA1E /* PromiseTests.swift */,
 				DB4069321D3441890065AA1E /* ChainTests.swift */,
 				DB62A6671D2EF52A00AE25C8 /* ConstFuturesTests.swift */,
 				DB62A6691D2EF52A00AE25C8 /* Info.plist */,
@@ -227,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB4069371D34AF790065AA1E /* PromiseTests.swift in Sources */,
 				DB62A6681D2EF52A00AE25C8 /* ConstFuturesTests.swift in Sources */,
 				DB4069331D3441890065AA1E /* ChainTests.swift in Sources */,
 			);

@@ -20,28 +20,27 @@ internal class ConstFuture<Element>: Future<Element> {
         return result
     }
     
-    override func onSuccess(f: (Element) -> Void) -> Future<Element> {
-        return respond {
-            if case .satisfied(let v) = $0 {
-                f(v)
-            }
-        }
-    }
-    
-    override func onError(f: (ErrorProtocol) -> ()) -> Future<Element> {
-        return respond {
-            if case .failed(let e) = $0 {
-                f(e)
-            }
-        }
-    }
-    
     override func respond(f: (Result<Element>) -> Void) -> Future<Element> {
         f(result)
         return self
     }
     
-    override func transform<T>(f: (Result<Element>) -> Future<T>) -> Future<T> {
-        return f(result)
+    
+    override func map<T>(f: (Element) -> T) -> Future<T> {
+        switch result {
+        case .satisfied(let v):
+            return Future<T>.value(value: f(v))
+        case .failed(let e):
+            return Future<T>.error(error: e)
+        }
+    }
+    
+    override func flatMap<T>(f: (Element) -> Future<T>) -> Future<T> {
+        switch result {
+        case .satisfied(let v):
+            return f(v)
+        case .failed(let e):
+            return Future<T>.error(error: e)
+        }
     }
 }
