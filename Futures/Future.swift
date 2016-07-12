@@ -12,14 +12,14 @@ public enum Result<T> {
     case satisfied(T)
     case failed(ErrorProtocol)
     
-    var value: T? {
+    public var value: T? {
         if case .satisfied(let v) = self {
             return v
         }
         return nil
     }
     
-    var error: ErrorProtocol? {
+    public var error: ErrorProtocol? {
         if case .failed(let e) = self {
             return e
         }
@@ -29,11 +29,11 @@ public enum Result<T> {
 
 public class Future<Element> {
     
-    class func value(value: Element) -> Future<Element> {
+    public class func value(value: Element) -> Future<Element> {
         return ConstFuture(result: .satisfied(value))
     }
     
-    class func error(error: ErrorProtocol) -> Future<Element> {
+    public class func error(error: ErrorProtocol) -> Future<Element> {
         return ConstFuture(result: .failed(error))
     }
     
@@ -42,7 +42,7 @@ public class Future<Element> {
     /// a Result if it has been fulfilled.
     ///
     /// This is most likely not the method you are looking for
-    func poll() -> Result<Element>? {
+    public func poll() -> Result<Element>? {
         fatalError("poll is an abstract method")
     }
     
@@ -62,39 +62,5 @@ public class Future<Element> {
     public func respond(f: (Result<Element>) -> Void) -> Future {
         fatalError("respond is an abstract method")
     }
-
 }
 
-private class ConstFuture<Element>: Future<Element> {
-    
-    private let result: Result<Element>
-    
-    init(result: Result<Element>) {
-        self.result = result
-    }
-    
-    override func poll() -> Result<Element>? {
-        return result
-    }
-    
-    private override func onSuccess(f: (Element) -> Void) -> Future<Element> {
-        return respond {
-            if case .satisfied(let v) = $0 {
-                f(v)
-            }
-        }
-    }
-    
-    private override func onError(f: (ErrorProtocol) -> ()) -> Future<Element> {
-        return respond {
-            if case .failed(let e) = $0 {
-                f(e)
-            }
-        }
-    }
-    
-    private override func respond(f: (Result<Element>) -> Void) -> Future<Element> {
-        f(result)
-        return self
-    }
-}

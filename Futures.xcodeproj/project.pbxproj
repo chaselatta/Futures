@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DB4069311D3441260065AA1E /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069301D3441260065AA1E /* Chain.swift */; };
 		DB4069331D3441890065AA1E /* ChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069321D3441890065AA1E /* ChainTests.swift */; };
+		DB4069351D34A6450065AA1E /* ConstFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069341D34A6450065AA1E /* ConstFuture.swift */; };
 		DB62A65C1D2EF52A00AE25C8 /* Futures.h in Headers */ = {isa = PBXBuildFile; fileRef = DB62A65B1D2EF52A00AE25C8 /* Futures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB62A6631D2EF52A00AE25C8 /* Futures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB62A6581D2EF52A00AE25C8 /* Futures.framework */; };
 		DB62A6681D2EF52A00AE25C8 /* FuturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6671D2EF52A00AE25C8 /* FuturesTests.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		DB4069301D3441260065AA1E /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 		DB4069321D3441890065AA1E /* ChainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainTests.swift; sourceTree = "<group>"; };
+		DB4069341D34A6450065AA1E /* ConstFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstFuture.swift; sourceTree = "<group>"; };
 		DB62A6581D2EF52A00AE25C8 /* Futures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Futures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB62A65B1D2EF52A00AE25C8 /* Futures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Futures.h; sourceTree = "<group>"; };
 		DB62A65D1D2EF52A00AE25C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				DB62A65B1D2EF52A00AE25C8 /* Futures.h */,
 				DB62A65D1D2EF52A00AE25C8 /* Info.plist */,
 				DB62A6721D2EF57200AE25C8 /* Future.swift */,
+				DB4069341D34A6450065AA1E /* ConstFuture.swift */,
 				DB62A6741D2F01CE00AE25C8 /* Promise.swift */,
 				DB4069301D3441260065AA1E /* Chain.swift */,
 			);
@@ -215,6 +218,7 @@
 			files = (
 				DB4069311D3441260065AA1E /* Chain.swift in Sources */,
 				DB62A6731D2EF57200AE25C8 /* Future.swift in Sources */,
+				DB4069351D34A6450065AA1E /* ConstFuture.swift in Sources */,
 				DB62A6751D2F01CE00AE25C8 /* Promise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
