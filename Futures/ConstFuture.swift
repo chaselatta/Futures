@@ -40,4 +40,8 @@ internal class ConstFuture<Element>: Future<Element> {
         f(result)
         return self
     }
+    
+    override func transform<T>(f: (Result<Element>) -> Future<T>) -> Future<T> {
+        return f(result)
+    }
 }

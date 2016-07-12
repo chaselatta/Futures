@@ -12,7 +12,7 @@
 		DB4069351D34A6450065AA1E /* ConstFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069341D34A6450065AA1E /* ConstFuture.swift */; };
 		DB62A65C1D2EF52A00AE25C8 /* Futures.h in Headers */ = {isa = PBXBuildFile; fileRef = DB62A65B1D2EF52A00AE25C8 /* Futures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB62A6631D2EF52A00AE25C8 /* Futures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB62A6581D2EF52A00AE25C8 /* Futures.framework */; };
-		DB62A6681D2EF52A00AE25C8 /* FuturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6671D2EF52A00AE25C8 /* FuturesTests.swift */; };
+		DB62A6681D2EF52A00AE25C8 /* ConstFuturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6671D2EF52A00AE25C8 /* ConstFuturesTests.swift */; };
 		DB62A6731D2EF57200AE25C8 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6721D2EF57200AE25C8 /* Future.swift */; };
 		DB62A6751D2F01CE00AE25C8 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6741D2F01CE00AE25C8 /* Promise.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +35,7 @@
 		DB62A65B1D2EF52A00AE25C8 /* Futures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Futures.h; sourceTree = "<group>"; };
 		DB62A65D1D2EF52A00AE25C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB62A6621D2EF52A00AE25C8 /* FuturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FuturesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB62A6671D2EF52A00AE25C8 /* FuturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuturesTests.swift; sourceTree = "<group>"; };
+		DB62A6671D2EF52A00AE25C8 /* ConstFuturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstFuturesTests.swift; sourceTree = "<group>"; };
 		DB62A6691D2EF52A00AE25C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB62A6721D2EF57200AE25C8 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		DB62A6741D2F01CE00AE25C8 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				DB4069321D3441890065AA1E /* ChainTests.swift */,
-				DB62A6671D2EF52A00AE25C8 /* FuturesTests.swift */,
+				DB62A6671D2EF52A00AE25C8 /* ConstFuturesTests.swift */,
 				DB62A6691D2EF52A00AE25C8 /* Info.plist */,
 			);
 			path = FuturesTests;
@@ -227,7 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB62A6681D2EF52A00AE25C8 /* FuturesTests.swift in Sources */,
+				DB62A6681D2EF52A00AE25C8 /* ConstFuturesTests.swift in Sources */,
 				DB4069331D3441890065AA1E /* ChainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

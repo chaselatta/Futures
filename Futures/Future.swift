@@ -59,8 +59,28 @@ public class Future<Element> {
     }
     
     @discardableResult
-    public func respond(f: (Result<Element>) -> Void) -> Future {
+    internal func respond(f: (Result<Element>) -> Void) -> Future {
         fatalError("respond is an abstract method")
     }
+    
+    internal func transform<T>(f: (Result<Element>) -> Future<T>) -> Future<T> {
+        fatalError("transform is an abstract method")
+    }
+}
+
+// MARK: Transformations
+extension Future {
+    
+    public func map<T>(f: (Element) -> T) -> Future<T> {
+        return transform { result in
+            switch result {
+            case .satisfied(let v):
+                return Future<T>.value(value: f(v))
+            case .failed(let e):
+                return Future<T>.error(error: e)
+            }
+        }
+    }
+    
 }
 

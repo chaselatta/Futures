@@ -1,6 +1,6 @@
 //
-//  FuturesTests.swift
-//  FuturesTests
+//  ConstFuturesTests.swift
+//  ConstFuturesTests
 //
 //  Created by Chase Latta on 7/7/16.
 //  Copyright © 2016 Chase Latta. All rights reserved.
@@ -9,17 +9,17 @@
 import XCTest
 @testable import Futures
 
-struct FutureTestsError: ErrorProtocol {
+struct ConstFutureTestsError: ErrorProtocol {
     let message: String
 }
-extension FutureTestsError: Equatable {}
-func ==(lhs: FutureTestsError, rhs: FutureTestsError) -> Bool {
+extension ConstFutureTestsError: Equatable {}
+func ==(lhs: ConstFutureTestsError, rhs: ConstFutureTestsError) -> Bool {
     return lhs.message == rhs.message
 }
 
-private let Error = FutureTestsError(message: "An error")
+private let Error = ConstFutureTestsError(message: "An error")
 
-class FuturesTests: XCTestCase {
+class ConstFuturesTests: XCTestCase {
 
     func testConstFuturePoll_Value() {
         let expected = "expected"
@@ -36,7 +36,7 @@ class FuturesTests: XCTestCase {
     func testConstFuturePoll_Error() {
         let expected = Error
         let f = Future<Any>.error(error: expected)
-        XCTAssertEqual(f.poll()?.error as? FutureTestsError, expected)
+        XCTAssertEqual(f.poll()?.error as? ConstFutureTestsError, expected)
     }
     
     func testConstFuturePollEmptyValue_Error() {
@@ -67,7 +67,7 @@ class FuturesTests: XCTestCase {
         var called = false
         
         Future<Any>.error(error: Error).onError { e in
-                if let e = e as? FutureTestsError {
+                if let e = e as? ConstFutureTestsError {
                     XCTAssertTrue(e == expected)
                 }
                 
@@ -82,6 +82,21 @@ class FuturesTests: XCTestCase {
         Future.value(value: 1).onError { _ in called = true }
         
         XCTAssertFalse(called)
+    }
+    
+    // MARK: Transformations
+    
+    func testBasicMap() {
+        let f = Future.value(value: "hello world")
+        var called = false
+        
+        f.map { $0.components(separatedBy: " ").count }
+            .onSuccess { (count) in
+                called = true
+                XCTAssert(count == 2)
+        }
+        
+        XCTAssert(called)
     }
     
 }
