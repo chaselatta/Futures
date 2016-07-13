@@ -99,6 +99,17 @@ class PromiseTests: XCTestCase {
         XCTAssertTrue(called)
     }
     
+    func testMultipleSideEffects() {
+        let p = Promise<Bool>()
+        var count = 0
+        
+        let incr: (Bool) -> Void = { _ in count += 1 }
+        p.onSuccess(f: incr)
+        p.onSuccess(f: incr)
+        
+        p.succeed(value: true)
+    }
+    
     // MARK: Transformations
     
     func testBasicMap() {
@@ -115,6 +126,7 @@ class PromiseTests: XCTestCase {
         XCTAssert(called)
     }
     
+    // MARK: transformation tests
     func testBasicFlatMap() {
         let p = Promise<String>()
         var called = false
@@ -145,6 +157,69 @@ class PromiseTests: XCTestCase {
         }
         p.succeed(value: 0)
         XCTAssert(called)
+    }
+    
+    // MARK: async tests
+    func testOnSuccessNotCalledImmediately() {
+        let syncP = Promise<Int>()
+        let asyncP = Promise<Int>()
+        
+        var calledSync = false
+        var calledAsync = false
+        
+        syncP.respond { _ in calledSync = true }
+        asyncP.respond { _ in calledAsync = true }
+        
+        DispatchQueue.main.async { 
+            asyncP.succeed(value: 1)
+        }
+        
+        syncP.succeed(value: 1)
+        
+        XCTAssertTrue(calledSync)
+        XCTAssertFalse(calledAsync)
+    }
+    
+    func testAsync_noMap() {
+        let p = Promise<Int>()
+
+        let exp = self.expectation(withDescription: "wait for promise")
+        p.respond { _ in exp.fulfill() }
+        
+        let time = DispatchTime.now() + .milliseconds(20)
+        DispatchQueue.main.after(when: time) {
+            p.succeed(value: 1)
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testAsync_withMap() {
+        let p = Promise<Int>()
+        
+        let exp = self.expectation(withDescription: "wait for promise")
+        p.map { String($0) }.respond { _ in exp.fulfill() }
+        
+        let time = DispatchTime.now() + .milliseconds(20)
+        DispatchQueue.main.after(when: time) {
+            p.succeed(value: 1)
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testAsync_withFlatMap() {
+        let p = Promise<Int>()
+        
+        let exp = self.expectation(withDescription: "wait for promise")
+        p.flatMap { Future.value(value: String($0)) }.respond { _ in exp.fulfill() }
+        
+        let time = DispatchTime.now() + .milliseconds(20)
+        DispatchQueue.main.after(when: time) {
+            p.succeed(value: 1)
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
     }
     
 }

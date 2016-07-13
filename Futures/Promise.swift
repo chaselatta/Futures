@@ -48,6 +48,7 @@ public class Promise<Element>: Future<Element> {
     // MARK: Public method
     
     public func succeed(value: Element) {
+        //TODO: Check if we are already fulfilled
         let result = Result.satisfied(value)
         state = .fulfilled(result)
         
@@ -59,6 +60,8 @@ public class Promise<Element>: Future<Element> {
     }
     
     public func fail(error: ErrorProtocol) {
+        //TODO: Check if we are already fulfilled
+        //TODO: deduplicate code
         let result = Result<Element>.failed(error)
         state = .fulfilled(result)
         
