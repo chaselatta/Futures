@@ -34,7 +34,15 @@ public class Promise<Element>: Future<Element> {
             return s
         }
         set {
-            withStateQueue { internalState = newValue }
+            withStateQueue {
+                switch internalState {
+                case .pending:
+                    internalState = newValue
+                case .fulfilled:
+                    fatalError("Attempting to fulfill a promise that has already been fulfilled")
+                }
+                internalState = newValue
+            }
         }
     }
     
@@ -58,7 +66,6 @@ public class Promise<Element>: Future<Element> {
     }
     
     private func fulfill(_ result: Result<Element>) {
-        //TODO: Check if we are already fulfilled
         state = .fulfilled(result)
         
         withSideEffectsQueue {
