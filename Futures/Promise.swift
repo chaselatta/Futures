@@ -48,21 +48,17 @@ public class Promise<Element>: Future<Element> {
     // MARK: Public method
     
     public func succeed(value: Element) {
-        //TODO: Check if we are already fulfilled
         let result = Result.satisfied(value)
-        state = .fulfilled(result)
-        
-        withSideEffectsQueue {
-            for f in sideEffects {
-                f(result)
-            }
-        }
+        fulfill(result)
     }
     
     public func fail(error: ErrorProtocol) {
-        //TODO: Check if we are already fulfilled
-        //TODO: deduplicate code
         let result = Result<Element>.failed(error)
+        fulfill(result)
+    }
+    
+    private func fulfill(_ result: Result<Element>) {
+        //TODO: Check if we are already fulfilled
         state = .fulfilled(result)
         
         withSideEffectsQueue {
