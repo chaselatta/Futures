@@ -17,9 +17,6 @@ public class Promise<Element>: Future<Element> {
     
     private typealias SideEffect = (Result<Element>) -> Void
     
-    var parent: Chainable? // need to make this weak
-    var child: Chainable?
-    
     private var internalState: PromiseState<Element> = .pending
     private let stateQueue = DispatchQueue(label: "com.futures.promise-state-queue", attributes: [.serial], target: nil)
     
@@ -77,16 +74,10 @@ public class Promise<Element>: Future<Element> {
     
     // MARK: Overrides
     public override func poll() -> Result<Element>? {
-        var result: Result<Element>? = nil
-        Chain.withTop(link: self) { (v) in
-            guard let v = v as? Promise else {
-                fatalError("Uknown type in chain")
-            }
-            if case .fulfilled(let r) = v.state {
-                result = r
-            }
+        if case .fulfilled(let r) = state {
+            return r
         }
-        return result
+        return nil
     }
     
     @discardableResult
@@ -135,8 +126,3 @@ public class Promise<Element>: Future<Element> {
     }
     
 }
-
-extension Promise: Chainable {
-}
-
-
