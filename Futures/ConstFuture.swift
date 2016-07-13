@@ -20,7 +20,7 @@ internal class ConstFuture<Element>: Future<Element> {
         return result
     }
     
-    override func respond(f: (Result<Element>) -> Void) -> Future<Element> {
+    override func respond(_ f: (Result<Element>) -> Void) -> Future<Element> {
         f(result)
         return self
     }
@@ -29,9 +29,9 @@ internal class ConstFuture<Element>: Future<Element> {
     override func map<T>(f: (Element) -> T) -> Future<T> {
         switch result {
         case .satisfied(let v):
-            return Future<T>.value(value: f(v))
+            return Future<T>.value(f(v))
         case .failed(let e):
-            return Future<T>.error(error: e)
+            return Future<T>.error(e)
         }
     }
     
@@ -40,7 +40,7 @@ internal class ConstFuture<Element>: Future<Element> {
         case .satisfied(let v):
             return f(v)
         case .failed(let e):
-            return Future<T>.error(error: e)
+            return Future<T>.error(e)
         }
     }
 }

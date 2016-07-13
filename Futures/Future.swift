@@ -29,11 +29,11 @@ public enum Result<T> {
 
 public class Future<Element> {
     
-    public final class func value(value: Element) -> Future<Element> {
+    public final class func value(_ value: Element) -> Future<Element> {
         return ConstFuture(result: .satisfied(value))
     }
     
-    public final class func error(error: ErrorProtocol) -> Future<Element> {
+    public final class func error(_ error: ErrorProtocol) -> Future<Element> {
         return ConstFuture(result: .failed(error))
     }
     
@@ -57,25 +57,33 @@ public class Future<Element> {
     // MARK: Side effects
     
     @discardableResult
-    public func onSuccess(f: (Element) -> Void) -> Future {
+    public func onSuccess(context: InvocationContext? = nil, execute f: (Element) -> Void) -> Future {
         return respond {
             if case .satisfied(let v) = $0 {
-                f(v)
+                self.with(context: context) { f(v) }
             }
         }
     }
     
     @discardableResult
-    public func onError(f: (ErrorProtocol) -> ()) -> Future {
+    public func onError(context: InvocationContext? = nil, execute f: (ErrorProtocol) -> Void) -> Future {
         return respond {
             if case .failed(let e) = $0 {
-                f(e)
+                self.with(context: context) { f(e) }
             }
         }
     }
     
+    private func with(context: InvocationContext?, execute f: () -> Void) {
+        if let context = context {
+            context.execute(f)
+        } else {
+            f()
+        }
+    }
+    
     @discardableResult
-    internal func respond(f: (Result<Element>) -> Void) -> Future {
+    internal func respond(_ f: (Result<Element>) -> Void) -> Future {
         fatalError("respond is an abstract method")
     }
     

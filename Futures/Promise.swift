@@ -90,7 +90,7 @@ public class Promise<Element>: Future<Element> {
     }
     
     @discardableResult
-    override func respond(f: (Result<Element>) -> Void) -> Future<Element> {
+    override func respond(_ f: (Result<Element>) -> Void) -> Future<Element> {
         withSideEffectsQueue {
             if let result = self.poll() {
                 f(result)

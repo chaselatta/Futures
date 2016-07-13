@@ -104,8 +104,8 @@ class PromiseTests: XCTestCase {
         var count = 0
         
         let incr: (Bool) -> Void = { _ in count += 1 }
-        p.onSuccess(f: incr)
-        p.onSuccess(f: incr)
+        p.onSuccess(execute: incr)
+        p.onSuccess(execute: incr)
         
         p.succeed(value: true)
     }
@@ -133,7 +133,7 @@ class PromiseTests: XCTestCase {
         
         p.flatMap { v -> Future<Int> in
             let count = v.components(separatedBy: " ").count
-            return Future.value(value: count)
+            return Future.value(count)
             }.onSuccess { (count) in
                 called = true
                 XCTAssert(count == 2)
@@ -149,7 +149,7 @@ class PromiseTests: XCTestCase {
         p
             .map { String($0) }
             .map { Int($0)! + 1 }
-            .flatMap { Future.value(value: String($0)) }
+            .flatMap { Future.value(String($0)) }
             .map { Int($0)! + 1 }
             .onSuccess { v in
                 called = true
@@ -178,7 +178,7 @@ class PromiseTests: XCTestCase {
         
         let _ = p.flatMap { v -> Future<Int> in
             called = true
-            return Future.value(value: v)
+            return Future.value(v)
         }
         
         p.fail(error: PromiseError)
@@ -238,7 +238,7 @@ class PromiseTests: XCTestCase {
         let p = Promise<Int>()
         
         let exp = self.expectation(withDescription: "wait for promise")
-        p.flatMap { Future.value(value: String($0)) }.respond { _ in exp.fulfill() }
+        p.flatMap { Future.value(String($0)) }.respond { _ in exp.fulfill() }
         
         let time = DispatchTime.now() + .milliseconds(20)
         DispatchQueue.main.after(when: time) {
@@ -296,7 +296,7 @@ class PromiseTests: XCTestCase {
     
     func testCancelInvokesCancelAction_flatMapped() {
         let parent = Promise<Any>()
-        let child = parent.flatMap { _ in Future.value(value: 1) }
+        let child = parent.flatMap { _ in Future.value(1) }
         
         var cancelled = false
         
