@@ -46,6 +46,14 @@ public class Future<Element> {
         fatalError("poll is an abstract method")
     }
     
+    /// cancel will send a signal to the future and up the
+    /// chain of futures telling them that they should attempt
+    /// to cancel. Calling this method does not guarantee that
+    /// the future will be cancelled. The provider of the future
+    /// can determine whether the onSuccess/onFailure methods
+    /// are invoked based on cancellation
+    public func cancel() { /* Intentionally Blank */ }
+    
     // MARK: Side effects
     
     @discardableResult
@@ -70,6 +78,8 @@ public class Future<Element> {
     internal func respond(f: (Result<Element>) -> Void) -> Future {
         fatalError("respond is an abstract method")
     }
+    
+    // MARK: Transformations
     
     public func map<T>(f: (Element) -> T) -> Future<T> {
         fatalError("map is abstract")

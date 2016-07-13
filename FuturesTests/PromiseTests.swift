@@ -159,8 +159,34 @@ class PromiseTests: XCTestCase {
         XCTAssert(called)
     }
     
+    func testMap_WithFail() {
+        let p = Promise<Int>()
+        var called = false
+        
+        let _ = p.map { v -> Int in
+            called = true
+            return v
+        }
+        
+        p.fail(error: PromiseError)
+        XCTAssertFalse(called)
+    }
+    
+    func testFlatMap_WithFail() {
+        let p = Promise<Int>()
+        var called = false
+        
+        let _ = p.flatMap { v -> Future<Int> in
+            called = true
+            return Future.value(value: v)
+        }
+        
+        p.fail(error: PromiseError)
+        XCTAssertFalse(called)
+    }
+    
     // MARK: async tests
-    func testOnSuccessNotCalledImmediately() {
+    func testRespondNotCalledImmediately() {
         let syncP = Promise<Int>()
         let asyncP = Promise<Int>()
         
@@ -220,6 +246,80 @@ class PromiseTests: XCTestCase {
         }
         
         waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testFlatmapWithAPromise() {
+        let p = Promise<Int>()
+        
+        let exp = self.expectation(withDescription: "wait for promise")
+        p.flatMap { _ -> Future<Int> in
+            let innerP = Promise<Int>()
+            let time = DispatchTime.now() + .milliseconds(10)
+            DispatchQueue.main.after(when: time) {
+                innerP.succeed(value: 2)
+            }
+            return innerP
+        }.respond { v in
+            exp.fulfill()
+        }
+        
+        let time = DispatchTime.now() + .milliseconds(10)
+        DispatchQueue.main.after(when: time) {
+            p.succeed(value: 1)
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    // MARK: Cancellation
+    
+    func testCancelInvokesCancelAction() {
+        let p = Promise<Any>()
+        var cancelled = false
+        p.cancelAction = { cancelled = true }
+        
+        p.cancel()
+        XCTAssertTrue(cancelled)
+    }
+    
+    func testCancelInvokesCancelAction_mapped() {
+        let parent = Promise<Any>()
+        let child = parent.map { _ in "foo" }
+        
+        var cancelled = false
+        
+        parent.cancelAction = { cancelled = true }
+        
+        child.cancel()
+        XCTAssertTrue(cancelled)
+    }
+    
+    func testCancelInvokesCancelAction_flatMapped() {
+        let parent = Promise<Any>()
+        let child = parent.flatMap { _ in Future.value(value: 1) }
+        
+        var cancelled = false
+        
+        parent.cancelAction = { cancelled = true }
+        
+        child.cancel()
+        XCTAssertTrue(cancelled)
+    }
+    
+    func testCancelInvokesCancelAction_flatMappedPromise() {
+        let parent = Promise<Int>()
+        var cancelled = false
+
+        let child = parent.flatMap { v -> Future<Int> in
+            let p = Promise<Int>()
+            p.cancelAction = { cancelled = true }
+            return p
+        }
+        
+        // need this to succeed so the flatMap gets invoked
+        parent.succeed(value: 1)
+        child.cancel()
+        XCTAssertTrue(cancelled)
     }
     
 }

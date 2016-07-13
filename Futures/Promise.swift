@@ -50,6 +50,15 @@ public class Promise<Element>: Future<Element> {
         sideEffectsQueue.sync(execute: f)
     }
     
+    private var parentCancelAction = {}
+    private var innerCancelAction = {}
+    
+    // Promise providers can set this value which will be
+    // invoked when the promise receives a cancel signal.
+    // Note: this variable should be set at the time of 
+    // the Promise's creation.
+    public var cancelAction: () -> Void = {}
+    
     // MARK: Public method
     
     public func succeed(value: Element) {
@@ -92,8 +101,14 @@ public class Promise<Element>: Future<Element> {
         return self
     }
     
+    public override func cancel() {
+        parentCancelAction()
+        cancelAction()
+        innerCancelAction()
+    }
+    
     public override func map<T>(f: (Element) -> T) -> Future<T> {
-        let p = Promise<T>()
+        let p: Promise<T> = childPromise()
         respond { (result) in
             switch result {
             case .satisfied(let v):
@@ -106,21 +121,34 @@ public class Promise<Element>: Future<Element> {
     }
     
     public override func flatMap<T>(f: (Element) -> Future<T>) -> Future<T> {
-        let p = Promise<T>()
+        let p: Promise<T> = childPromise()
         respond { (result) in
             switch result {
             case .satisfied(let v):
-                f(v).respond { (inner) in
+                
+                let innerPromise = f(v)
+                
+                innerPromise.respond { (inner) in
                     switch inner {
-                    case .satisfied(let innerV):
-                        p.succeed(value: innerV)
-                    case .failed(let innerE):
-                        p.fail(error: innerE)
+                    case .satisfied(let innerValue):
+                        p.succeed(value: innerValue)
+                    case .failed(let innerError):
+                        p.fail(error: innerError)
                     }
                 }
+                
+                p.innerCancelAction = { innerPromise.cancel() }
             case .failed(let e):
                 p.fail(error: e)
             }
+        }
+        return p
+    }
+    
+    private func childPromise<T>() -> Promise<T> {
+        let p = Promise<T>()
+        p.parentCancelAction = { [unowned self] in
+            self.cancel()
         }
         return p
     }
