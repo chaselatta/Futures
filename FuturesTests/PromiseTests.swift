@@ -185,6 +185,37 @@ class PromiseTests: XCTestCase {
         XCTAssertFalse(called)
     }
     
+    func testRescue_succeed() {
+        let p = Promise<String>()
+        let r = p.rescue { _ in
+            XCTFail("should never run")
+            return Future.value("bar")
+        }
+        
+        let exp = expectation(withDescription: "wait for rescue")
+        r.onSuccess { v in
+            XCTAssertEqual(v, "foo")
+            exp.fulfill()
+        }
+        p.succeed(value: "foo")
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testRescue_failure() {
+        let p = Promise<String>()
+        let r = p.rescue { _ in
+            return Future.value("foo")
+        }
+        
+        let exp = expectation(withDescription: "wait for rescue")
+        r.onSuccess { v in
+            XCTAssertEqual(v, "foo")
+            exp.fulfill()
+        }
+        p.fail(error: PromiseError)
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
     // MARK: async tests
     func testRespondNotCalledImmediately() {
         let syncP = Promise<Int>()

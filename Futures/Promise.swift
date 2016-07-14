@@ -56,7 +56,7 @@ public class Promise<Element>: Future<Element> {
     // Promise providers can set this value which will be
     // invoked when the promise receives a cancel signal.
     // Note: this variable should be set at the time of 
-    // the Promise's creation.
+        // the Promise's creation.
     public var cancelAction: () -> Void = {}
     
     // MARK: Public method
@@ -142,6 +142,31 @@ public class Promise<Element>: Future<Element> {
                 p.innerCancelAction = { innerPromise.cancel() }
             case .failed(let e):
                 p.fail(error: e)
+            }
+        }
+        return p
+    }
+    
+    public override func rescue(f: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
+        let p: Promise<Element> = childPromise()
+        respond { result in
+            switch result {
+            case .satisfied(let v):
+                p.succeed(value: v)
+            case .failed(let e):
+                
+                let innerPromise = f(e)
+                
+                innerPromise.respond { (inner) in
+                    switch inner {
+                    case .satisfied(let innerValue):
+                        p.succeed(value: innerValue)
+                    case .failed(let innerError):
+                        p.fail(error: innerError)
+                    }
+                }
+                
+                p.innerCancelAction = { innerPromise.cancel() }
             }
         }
         return p

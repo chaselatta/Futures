@@ -125,4 +125,33 @@ class ConstFuturesTests: XCTestCase {
         
         XCTAssert(called)
     }
+    
+    func testRescue_succeed() {
+        let f = Future.value("foo")
+        let r = f.rescue { _ in
+            XCTFail("should never run")
+            return Future.value("bar")
+        }
+        
+        let exp = expectation(withDescription: "wait for rescue")
+        r.onSuccess { v in
+            XCTAssertEqual(v, "foo")
+            exp.fulfill()
+        }
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testRescue_failure() {
+        let f = Future<String>.error(Error)
+        let r = f.rescue { _ in
+            return Future.value("foo")
+        }
+        
+        let exp = expectation(withDescription: "wait for rescue")
+        r.onSuccess { v in
+            XCTAssertEqual(v, "foo")
+            exp.fulfill()
+        }
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
 }

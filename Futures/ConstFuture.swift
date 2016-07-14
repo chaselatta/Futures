@@ -43,4 +43,13 @@ internal class ConstFuture<Element>: Future<Element> {
             return Future<T>.error(e)
         }
     }
+    
+    override func rescue(f: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
+        switch result {
+        case .satisfied(let v):
+            return Future.value(v)
+        case .failed(let e):
+            return f(e)
+        }
+    }
 }
