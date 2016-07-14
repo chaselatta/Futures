@@ -125,5 +125,4 @@ class ConstFuturesTests: XCTestCase {
         
         XCTAssert(called)
     }
-    
 }

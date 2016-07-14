@@ -96,6 +96,5 @@ public class Future<Element> {
     public func flatMap<T>(f: (Element) -> Future<T>) -> Future<T> {
         fatalError("flatMap is abstract")
     }
-    
 }
 
