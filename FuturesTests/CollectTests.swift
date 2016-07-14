@@ -57,14 +57,14 @@ class CollectTests: XCTestCase {
             }
             
             DispatchQueue.main.async {
-                p.fail(error: FutureExtensionsTestsError)
+                p.fail(error: CollectTestsError)
             }
         }
     }
     
     func testCollect_allFailing() {
         runWithExpectation("test collect single failure") { exp in
-            let f = Future<Int>.error(FutureExtensionsTestsError)
+            let f = Future<Int>.error(CollectTestsError)
             let p = Promise<Int>()
             
             let futures = [p, f]
@@ -74,7 +74,7 @@ class CollectTests: XCTestCase {
             }
             
             DispatchQueue.main.async {
-                p.fail(error: FutureExtensionsTestsError)
+                p.fail(error: CollectTestsError)
             }
         }
     }
