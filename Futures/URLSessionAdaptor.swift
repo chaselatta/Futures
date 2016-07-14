@@ -15,7 +15,7 @@ public struct DataTaskResponse {
     
     public init(data: Data, response: URLResponse) {
         self.data = data
-        self.response = response 
+        self.response = response
     }
 }
 
@@ -44,8 +44,9 @@ public struct URLSessionAdaptor {
             } else if let data = data, response = response {
                 let taskResponse = DataTaskResponse(data: data, response: response)
                 promise.succeed(value: taskResponse)
+            } else {
+                fatalError("should not get to this point")
             }
-            fatalError("Should not get to this point") // do better than this
         }
         
         return (promise, handler)

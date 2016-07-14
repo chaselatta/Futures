@@ -20,6 +20,7 @@
 		DBCB619C1D36FFDF00BA79D7 /* Futures.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619B1D36FFDF00BA79D7 /* Futures.swift */; };
 		DBCB619E1D36FFF600BA79D7 /* CollectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619D1D36FFF600BA79D7 /* CollectTests.swift */; };
 		DBCB61A01D372BF200BA79D7 /* FirstsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619F1D372BF200BA79D7 /* FirstsTests.swift */; };
+		DBFFC7AF1D3850C300FEB77E /* FuturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFC7AE1D3850C300FEB77E /* FuturesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		DBCB619B1D36FFDF00BA79D7 /* Futures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Futures.swift; sourceTree = "<group>"; };
 		DBCB619D1D36FFF600BA79D7 /* CollectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectTests.swift; sourceTree = "<group>"; };
 		DBCB619F1D372BF200BA79D7 /* FirstsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstsTests.swift; sourceTree = "<group>"; };
+		DBFFC7AE1D3850C300FEB77E /* FuturesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuturesTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		DB62A6661D2EF52A00AE25C8 /* FuturesTests */ = {
 			isa = PBXGroup;
 			children = (
+				DBFFC7AE1D3850C300FEB77E /* FuturesTests.swift */,
 				DBCB619F1D372BF200BA79D7 /* FirstsTests.swift */,
 				DBCB619D1D36FFF600BA79D7 /* CollectTests.swift */,
 				DBCB61991D36E74B00BA79D7 /* InvocationContextTests.swift */,
@@ -246,6 +249,7 @@
 			files = (
 				DBCB619E1D36FFF600BA79D7 /* CollectTests.swift in Sources */,
 				DB4069371D34AF790065AA1E /* PromiseTests.swift in Sources */,
+				DBFFC7AF1D3850C300FEB77E /* FuturesTests.swift in Sources */,
 				DBCB61A01D372BF200BA79D7 /* FirstsTests.swift in Sources */,
 				DBCB619A1D36E74B00BA79D7 /* InvocationContextTests.swift in Sources */,
 				DB62A6681D2EF52A00AE25C8 /* ConstFuturesTests.swift in Sources */,
