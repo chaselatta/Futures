@@ -1,0 +1,12 @@
+# references:
+# * http://www.objc.io/issue-6/travis-ci.html
+# * https://github.com/supermarin/xcpretty#usage
+
+language: objective-c
+osx_image: xcode8.0
+xcode_scheme: Futures
+before_install: true
+script:
+- set -o pipefail
+- xctool -scheme 'Futures' -sdk iphonesimulator clean test -parallelize
+- xctool -scheme 'Futures' -sdk iphonesimulator GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES clean test -parallelize
