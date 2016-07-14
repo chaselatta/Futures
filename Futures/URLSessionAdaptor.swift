@@ -12,6 +12,11 @@ import Foundation
 public struct DataTaskResponse {
     public let data: Data
     public let response: URLResponse
+    
+    public init(data: Data, response: URLResponse) {
+        self.data = data
+        self.response = response 
+    }
 }
 
 public typealias DataTaskCompletionHandler = (Data?, URLResponse?, NSError?) -> Void
