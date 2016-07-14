@@ -37,6 +37,8 @@ public class Future<Element> {
         return ConstFuture(result: .failed(error))
     }
     
+    public init() {}
+    
     /// poll checks to see if the Future is complete,
     /// returns nil if the value is not fulfilled and 
     /// a Result if it has been fulfilled.

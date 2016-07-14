@@ -61,6 +61,8 @@ public class Promise<Element>: Future<Element> {
     
     // MARK: Public method
     
+    public override init() {}
+    
     public func succeed(value: Element) {
         let result = Result.satisfied(value)
         fulfill(result)
