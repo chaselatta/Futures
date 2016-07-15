@@ -115,4 +115,48 @@ public struct Futures {
         return p
     }
     
+    /// Takes two Futures of different types and returns a Future tuple with the
+    /// the results. This method is similar to collect with the exception that it supports
+    /// multiple types.
+    static func zip<T, U>(_ f1: Future<T>, _ f2: Future<U>) -> Future<(T, U)> {
+        // This is a really ugly implementation and I would like to clean it up but I just wanted something that works
+        let p = Promise<(T, U)>()
+        var first: T?
+        var second: U?
+        var failed = false
+        let context = InvocationContext.sync(on: DispatchQueue(label: "zip-queue"))
+        
+        let succeedMaybe = {
+            if let first = first, second = second {
+                p.succeed(value: (first, second))
+            }
+        }
+        
+        f1.onSuccess(context: context) { v in
+            first = v
+            succeedMaybe()
+        }
+        
+        f2.onSuccess(context: context) { v in
+            second = v
+            succeedMaybe()
+        }
+        
+        f1.onError(context: context) { e in
+            if !failed {
+                p.fail(error: e)
+                failed = true
+            }
+        }
+        
+        f2.onError(context: context) { e in
+            if !failed {
+                p.fail(error: e)
+                failed = true
+            }
+        }
+        
+        return p
+    }
+    
 }
