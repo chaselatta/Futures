@@ -13,23 +13,6 @@ public let FuturesOptionalFailureError = NSError(domain: "com.futures.futures", 
 
 public struct Futures {
     
-    public static func optional<T>(_ value: T?, error: ErrorProtocol = FuturesOptionalFailureError) -> Future<T> {
-        if let v = value {
-            return .value(v)
-        } else {
-            // need some error
-            return .error(error)
-        }
-    }
-    
-    public static func throwable<T>(throwable f: () throws -> T) -> Future<T> {
-        do {
-            return .value(try f())
-        } catch {
-            return .error(error)
-        }
-    }
-    
     /// Transforms the given array of Futures to a single Future
     /// of all the results.
     ///

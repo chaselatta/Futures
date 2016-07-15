@@ -37,6 +37,23 @@ public class Future<Element> {
         return ConstFuture(result: .failed(error))
     }
     
+    public final class func optional(_ value: Element?, error: ErrorProtocol = FuturesOptionalFailureError) -> Future<Element> {
+        if let v = value {
+            return .value(v)
+        } else {
+            // need some error
+            return .error(error)
+        }
+    }
+    
+    public final class func throwable(throwable f: () throws -> Element) -> Future<Element> {
+        do {
+            return .value(try f())
+        } catch {
+            return .error(error)
+        }
+    }
+    
     public init() {}
     
     /// poll checks to see if the Future is complete,

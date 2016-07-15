@@ -1,5 +1,5 @@
 //
-//  FuturesTests.swift
+//  FutureTests.swift
 //  Futures
 //
 //  Created by Chase Latta on 7/14/16.
@@ -9,11 +9,11 @@
 import XCTest
 @testable import Futures
 
-class FuturesTests: XCTestCase {
+class FutureTests: XCTestCase {
     
     func testOptionalFailure() {
         let v: Int? = nil
-        let f = Futures.optional(v)
+        let f = Future.optional(v)
         
         let exp = expectation(withDescription: "execute on error")
         f.onError { _ in exp.fulfill() }
@@ -23,8 +23,8 @@ class FuturesTests: XCTestCase {
     func testOptionalFailureWithError() {
         let v: Int? = nil
         let error = NSError(domain: "my-domain", code: 123, userInfo: nil)
-
-        let f = Futures.optional(v, error: error)
+        
+        let f = Future.optional(v, error: error)
         let exp = expectation(withDescription: "execute on error")
         
         f.onError { e in
@@ -37,7 +37,7 @@ class FuturesTests: XCTestCase {
     func testOptionalSucceed() {
         let expected: Int? = 1
         
-        let f = Futures.optional(expected)
+        let f = Future.optional(expected)
         let exp = expectation(withDescription: "execute on success")
         
         f.onSuccess { value in
@@ -56,8 +56,8 @@ class FuturesTests: XCTestCase {
     
     func testThrowableFail() {
         let error = NSError(domain: "my-domain", code: 123, userInfo: nil)
- 
-        let f = Futures.throwable { try self.thrower(error: error) }
+        
+        let f = Future.throwable { try self.thrower(error: error) }
         
         let exp = expectation(withDescription: "execute on error")
         
@@ -69,7 +69,7 @@ class FuturesTests: XCTestCase {
     }
     
     func testThrowableSucceed_Void() {
-        let f = Futures.throwable { }
+        let f = Future.throwable { }
         
         let exp = expectation(withDescription: "execute on error")
         
@@ -81,7 +81,7 @@ class FuturesTests: XCTestCase {
     
     func testThrowableSucceed_Value() {
         let expected = 1
-        let f = Futures.throwable { try self.thrower(error: nil, value: expected) }
+        let f = Future.throwable { try self.thrower(error: nil, value: expected) }
         
         let exp = expectation(withDescription: "execute on succeed")
         
@@ -89,27 +89,6 @@ class FuturesTests: XCTestCase {
             XCTAssertEqual(v, expected)
             exp.fulfill()
         }
-        waitForExpectations(withTimeout: 1, handler: nil)
-    }
-    
-    func testZip_succeed() {
-        let exp = expectation(withDescription: "execute on succeed")
-        
-        Futures.zip(Future.value(1), Future.value("foo")).onSuccess { v in
-            XCTAssertEqual(v.0, 1)
-            XCTAssertEqual(v.1, "foo")
-            exp.fulfill()
-        }
-        
-        waitForExpectations(withTimeout: 1, handler: nil)
-    }
-    
-    func testZip_failure() {
-        let exp = expectation(withDescription: "execute on succeed")
-        
-        Futures.zip(Future.value(1), Future<String>.error(NSError())).onError { _ in            exp.fulfill()
-        }
-        
         waitForExpectations(withTimeout: 1, handler: nil)
     }
     
