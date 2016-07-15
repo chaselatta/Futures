@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		DB4069351D34A6450065AA1E /* ConstFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069341D34A6450065AA1E /* ConstFuture.swift */; };
 		DB4069371D34AF790065AA1E /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069361D34AF790065AA1E /* PromiseTests.swift */; };
-		DB62A65C1D2EF52A00AE25C8 /* Futures.h in Headers */ = {isa = PBXBuildFile; fileRef = DB62A65B1D2EF52A00AE25C8 /* Futures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB62A6631D2EF52A00AE25C8 /* Futures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB62A6581D2EF52A00AE25C8 /* Futures.framework */; };
 		DB62A6681D2EF52A00AE25C8 /* ConstFuturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6671D2EF52A00AE25C8 /* ConstFuturesTests.swift */; };
 		DB62A6731D2EF57200AE25C8 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6721D2EF57200AE25C8 /* Future.swift */; };
@@ -37,7 +36,6 @@
 		DB4069341D34A6450065AA1E /* ConstFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstFuture.swift; sourceTree = "<group>"; };
 		DB4069361D34AF790065AA1E /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
 		DB62A6581D2EF52A00AE25C8 /* Futures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Futures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB62A65B1D2EF52A00AE25C8 /* Futures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Futures.h; sourceTree = "<group>"; };
 		DB62A65D1D2EF52A00AE25C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB62A6621D2EF52A00AE25C8 /* FuturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FuturesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB62A6671D2EF52A00AE25C8 /* ConstFuturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstFuturesTests.swift; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 		DB62A65A1D2EF52A00AE25C8 /* Futures */ = {
 			isa = PBXGroup;
 			children = (
-				DB62A65B1D2EF52A00AE25C8 /* Futures.h */,
 				DB62A65D1D2EF52A00AE25C8 /* Info.plist */,
 				DBCB61971D36E61B00BA79D7 /* InvocationContext.swift */,
 				DB62A6721D2EF57200AE25C8 /* Future.swift */,
@@ -126,7 +123,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB62A65C1D2EF52A00AE25C8 /* Futures.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
