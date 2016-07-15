@@ -54,6 +54,14 @@ public class Future<Element> {
         }
     }
     
+    public final class func after(when time: DispatchTime, value: Element) -> Future<Element> {
+        let p = Promise<Element>()
+        DispatchQueue.global(attributes: [.qosUserInitiated]).after(when: time) {
+            p.succeed(value: value)
+        }
+        return p
+    }
+    
     public init() {}
     
     /// poll checks to see if the Future is complete,

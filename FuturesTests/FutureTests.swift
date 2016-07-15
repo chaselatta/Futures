@@ -92,4 +92,16 @@ class FutureTests: XCTestCase {
         waitForExpectations(withTimeout: 1, handler: nil)
     }
     
+    func testAfter() {
+        let t = DispatchTime.now() + .milliseconds(10)
+        let exp  = expectation(withDescription: "wait for after")
+        let value = 1
+        
+        Future<Int>.after(when: t, value: value).onSuccess { v in
+            XCTAssertEqual(value, v)
+            exp.fulfill()
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
 }
