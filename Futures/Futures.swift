@@ -118,7 +118,7 @@ public struct Futures {
     /// Takes two Futures of different types and returns a Future tuple with the
     /// the results. This method is similar to collect with the exception that it supports
     /// multiple types.
-    static func zip<T, U>(_ f1: Future<T>, _ f2: Future<U>) -> Future<(T, U)> {
+    public static func zip<T, U>(_ f1: Future<T>, _ f2: Future<U>) -> Future<(T, U)> {
         // This is a really ugly implementation and I would like to clean it up but I just wanted something that works
         let p = Promise<(T, U)>()
         var first: T?
