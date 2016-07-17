@@ -8,9 +8,6 @@
 
 import Foundation
 
-// Need better error code and domain
-public let FuturesOptionalFailureError = NSError(domain: "com.futures.futures", code: 1, userInfo: nil)
-
 public struct Futures {
     
     /// Transforms the given array of Futures to a single Future

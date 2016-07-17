@@ -353,4 +353,99 @@ class PromiseTests: XCTestCase {
         XCTAssertTrue(cancelled)
     }
     
+    func testBy_succeed() {
+        let t = DispatchTime.now() + .milliseconds(2)
+        let exp  = expectation(withDescription: "wait for by")
+        
+        let p = Promise<Int>()
+        DispatchQueue.main.after(when: t) {
+            p.succeed(value: 1)
+        }
+        
+        p.by(when: .distantFuture).onSuccess { _ in exp.fulfill() }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testBy_failing() {
+        let t = DispatchTime.now() + .milliseconds(10)
+        let exp  = expectation(withDescription: "wait for by")
+        let error = NSError(domain: "my-error", code: 123, userInfo: nil)
+        
+        let p = Promise<Int>()
+        DispatchQueue.main.after(when: t) {
+            p.fail(error: error)
+        }
+        
+        p.by(when: .distantFuture).onError { e in
+            XCTAssertEqual(e as NSError, error)
+            exp.fulfill()
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testBy_fail() {
+        let t = DispatchTime.now() + .milliseconds(10)
+        let exp  = expectation(withDescription: "wait for by")
+        
+        let p = Promise<Int>()
+        DispatchQueue.main.after(when: t + .seconds(1)) {
+            p.fail(error: NSError())
+        }
+        
+        p.by(when: t).onError { _ in exp.fulfill() }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testBy_failWithError() {
+        let t = DispatchTime.now() + .milliseconds(10)
+        let error = NSError(domain: "my-error", code: 999, userInfo: nil)
+        let exp  = expectation(withDescription: "wait for by")
+        
+        let p = Promise<Int>()
+        DispatchQueue.main.after(when: t + .seconds(1)) {
+            p.fail(error: NSError())
+        }
+        
+        p.by(when: t, error: error).onError { e in
+                XCTAssertEqual(e as NSError, error)
+                exp.fulfill()
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testBy_withMap() {
+        let t = DispatchTime.now() + .milliseconds(2)
+        let exp  = expectation(withDescription: "wait for by")
+        
+        let p = Promise<Int>()
+        DispatchQueue.main.after(when: t) {
+            p.succeed(value: 1)
+        }
+        
+        p.by(when: .distantFuture).map { String($0) }.onSuccess { v in
+            XCTAssertEqual(v, "1")
+            exp.fulfill()
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testBy_withMapFail() {
+        let t = DispatchTime.now() + .milliseconds(10)
+        let exp  = expectation(withDescription: "wait for by")
+        
+        let p = Promise<Int>()
+        DispatchQueue.main.after(when: t + .seconds(1)) {
+            p.fail(error: NSError())
+        }
+        
+        p.by(when: t).map { _ in XCTFail("should not be called") }.onError { _ in exp.fulfill() }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
 }

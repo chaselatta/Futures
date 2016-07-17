@@ -154,4 +154,26 @@ class ConstFuturesTests: XCTestCase {
         }
         waitForExpectations(withTimeout: 1, handler: nil)
     }
+    
+    func testBy_succeed() {
+        let t = DispatchTime.now() + .milliseconds(10)
+        let exp  = expectation(withDescription: "wait for by")
+        
+        Future.value(1).by(when: t).onSuccess { _ in exp.fulfill() }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testBy_failing() {
+        let t = DispatchTime.now() + .milliseconds(10)
+        let exp  = expectation(withDescription: "wait for by")
+        let error = NSError(domain: "my-error", code: 123, userInfo: nil)
+        
+        Future<Int>.error(error).by(when: t).onError { e in
+            XCTAssertEqual(e as NSError, error)
+            exp.fulfill()
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
 }

@@ -27,6 +27,10 @@ public enum Result<T> {
     }
 }
 
+//TODO: Need better error codes and domain
+public let FutureOptionalFailureError = NSError(domain: "com.futures.future", code: 1, userInfo: nil)
+public let FutureByTimeoutError = NSError(domain: "com.futures.future", code: 2, userInfo: nil)
+
 public class Future<Element> {
     
     public final class func value(_ value: Element) -> Future<Element> {
@@ -37,7 +41,7 @@ public class Future<Element> {
         return ConstFuture(result: .failed(error))
     }
     
-    public final class func optional(_ value: Element?, error: ErrorProtocol = FuturesOptionalFailureError) -> Future<Element> {
+    public final class func optional(_ value: Element?, error: ErrorProtocol = FutureOptionalFailureError) -> Future<Element> {
         if let v = value {
             return .value(v)
         } else {
@@ -126,6 +130,10 @@ public class Future<Element> {
     
     public func rescue(f: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
         fatalError("rescue is abstract")
+    }
+    
+    public func by(when: DispatchTime, error: ErrorProtocol = FutureByTimeoutError) -> Future<Element> {
+        fatalError("by is abstract")
     }
 }
 

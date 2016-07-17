@@ -172,6 +172,34 @@ public class Promise<Element>: Future<Element> {
         return p
     }
     
+    public override func by(when: DispatchTime, error: ErrorProtocol = FutureByTimeoutError) -> Future<Element> {
+        let p: Promise<Element> = childPromise()
+        let queue = DispatchQueue(label: "promise-by-queue")
+        let ctx = InvocationContext.sync(on: queue)
+        var fulfilled = false
+        
+        let doOnce:  (() -> ()) -> () = { f in
+            if !fulfilled {
+                f()
+                fulfilled = true
+            }
+        }
+        
+        Future.after(when: when, value: Void()).onSuccess { _ in
+            doOnce { p.fail(error: error) }
+        }
+        
+        onSuccess(context: ctx) { v in
+            doOnce { p.succeed(value: v) }
+        }
+        
+        onError(context: ctx) { e in
+            doOnce { p.fail(error: e) }
+        }
+        
+        return p
+    }
+    
     private func childPromise<T>() -> Promise<T> {
         let p = Promise<T>()
         p.parentCancelAction = { [unowned self] in

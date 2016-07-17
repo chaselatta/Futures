@@ -52,4 +52,8 @@ internal class ConstFuture<Element>: Future<Element> {
             return f(e)
         }
     }
+    
+    override func by(when: DispatchTime, error: ErrorProtocol = FutureByTimeoutError) -> Future<Element> {
+        return self 
+    }
 }
