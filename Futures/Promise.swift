@@ -135,7 +135,7 @@ public class Promise<Element>: Future<Element> {
         
         return p
     }
-    
+
     public override func rescue(f: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
         let p: Promise<Element> = childPromise()
         
