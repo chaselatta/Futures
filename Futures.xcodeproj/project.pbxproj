@@ -21,6 +21,7 @@
 		DBCB61A01D372BF200BA79D7 /* FirstsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619F1D372BF200BA79D7 /* FirstsTests.swift */; };
 		DBFFC7AF1D3850C300FEB77E /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFC7AE1D3850C300FEB77E /* FutureTests.swift */; };
 		DBFFC7B11D38646B00FEB77E /* ZipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFC7B01D38646B00FEB77E /* ZipTests.swift */; };
+		DBFFC7B61D3C36A400FEB77E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFC7B21D3C299C00FEB77E /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		DBCB619F1D372BF200BA79D7 /* FirstsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstsTests.swift; sourceTree = "<group>"; };
 		DBFFC7AE1D3850C300FEB77E /* FutureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
 		DBFFC7B01D38646B00FEB77E /* ZipTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipTests.swift; sourceTree = "<group>"; };
+		DBFFC7B21D3C299C00FEB77E /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		DBFFC7B41D3C29BD00FEB77E /* ResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,7 @@
 				DB4069341D34A6450065AA1E /* ConstFuture.swift */,
 				DB62A6741D2F01CE00AE25C8 /* Promise.swift */,
 				DBCB61951D36DF0A00BA79D7 /* URLSessionAdaptor.swift */,
+				DBFFC7B21D3C299C00FEB77E /* Result.swift */,
 			);
 			path = Futures;
 			sourceTree = "<group>";
@@ -107,6 +111,7 @@
 		DB62A6661D2EF52A00AE25C8 /* FuturesTests */ = {
 			isa = PBXGroup;
 			children = (
+				DBFFC7B41D3C29BD00FEB77E /* ResultTests.swift */,
 				DBFFC7B01D38646B00FEB77E /* ZipTests.swift */,
 				DBFFC7AE1D3850C300FEB77E /* FutureTests.swift */,
 				DBCB619F1D372BF200BA79D7 /* FirstsTests.swift */,
@@ -237,6 +242,7 @@
 				DB62A6731D2EF57200AE25C8 /* Future.swift in Sources */,
 				DBCB61981D36E61B00BA79D7 /* InvocationContext.swift in Sources */,
 				DB4069351D34A6450065AA1E /* ConstFuture.swift in Sources */,
+				DBFFC7B61D3C36A400FEB77E /* Result.swift in Sources */,
 				DBCB619C1D36FFDF00BA79D7 /* Futures.swift in Sources */,
 				DB62A6751D2F01CE00AE25C8 /* Promise.swift in Sources */,
 			);

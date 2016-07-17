@@ -8,25 +8,6 @@
 
 import Foundation
 
-public enum Result<T> {
-    case satisfied(T)
-    case failed(ErrorProtocol)
-    
-    public var value: T? {
-        if case .satisfied(let v) = self {
-            return v
-        }
-        return nil
-    }
-    
-    public var error: ErrorProtocol? {
-        if case .failed(let e) = self {
-            return e
-        }
-        return nil
-    }
-}
-
 //TODO: Need better error codes and domain
 public let FutureOptionalFailureError = NSError(domain: "com.futures.future", code: 1, userInfo: nil)
 public let FutureByTimeoutError = NSError(domain: "com.futures.future", code: 2, userInfo: nil)

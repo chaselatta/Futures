@@ -111,7 +111,7 @@ public class Promise<Element>: Future<Element> {
     
     public override func map<T>(f: (Element) -> T) -> Future<T> {
         let p: Promise<T> = childPromise()
-        respond { (result) in
+        respond {  result in
             switch result {
             case .satisfied(let v):
                 p.succeed(value: f(v))
@@ -124,51 +124,29 @@ public class Promise<Element>: Future<Element> {
     
     public override func flatMap<T>(f: (Element) -> Future<T>) -> Future<T> {
         let p: Promise<T> = childPromise()
-        respond { (result) in
-            switch result {
-            case .satisfied(let v):
-                
-                let innerPromise = f(v)
-                
-                innerPromise.respond { (inner) in
-                    switch inner {
-                    case .satisfied(let innerValue):
-                        p.succeed(value: innerValue)
-                    case .failed(let innerError):
-                        p.fail(error: innerError)
-                    }
-                }
-                
-                p.innerCancelAction = { innerPromise.cancel() }
-            case .failed(let e):
-                p.fail(error: e)
-            }
+        
+        onSuccess { value in
+            let inner = f(value)
+            inner.onSuccess(execute: p.succeed).onError(execute: p.fail)
+            p.innerCancelAction = { inner.cancel() }
         }
+        
+        onError(execute: p.fail)
+        
         return p
     }
     
     public override func rescue(f: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
         let p: Promise<Element> = childPromise()
-        respond { result in
-            switch result {
-            case .satisfied(let v):
-                p.succeed(value: v)
-            case .failed(let e):
-                
-                let innerPromise = f(e)
-                
-                innerPromise.respond { (inner) in
-                    switch inner {
-                    case .satisfied(let innerValue):
-                        p.succeed(value: innerValue)
-                    case .failed(let innerError):
-                        p.fail(error: innerError)
-                    }
-                }
-                
-                p.innerCancelAction = { innerPromise.cancel() }
-            }
+        
+        onSuccess(execute: p.succeed)
+        
+        onError { error in
+            let inner = f(error)
+            inner.onSuccess(execute: p.succeed).onError(execute: p.fail)
+            p.innerCancelAction = { inner.cancel() }
         }
+
         return p
     }
     
