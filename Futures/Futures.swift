@@ -98,52 +98,22 @@ public struct Futures {
     /// multiple types.
     public static func zip<T, U>(_ f1: Future<T>, _ f2: Future<U>) -> Future<(T, U)> {
         let p = Promise<(T, U)>()
-        var first: T?
-        var second: U?
-        var failed = false
-        let queue = DispatchQueue(label: "zip-queue")
         
-
-        let succeedMaybe = { (firstMaybe: T?, secondMaybe: U?) in
-            queue.sync {
-                if failed {
-                    return
-                }
-                
-                first = first.takeIfNone(value: firstMaybe)
-                second = second.takeIfNone(value: secondMaybe)
-                
-                if let first = first, second = second {
-                    p.succeed(value: (first, second))
-                }
+        let failOnce = { (e: ErrorProtocol) in
+            if p.poll() == nil {
+                p.fail(error: e)
             }
         }
         
-        let failMaybe = { (error: ErrorProtocol?) in
-            queue.sync {
-                if failed {
-                    return
-                }
-                
-                if let error = error {
-                    p.fail(error: error)
-                    failed = true
-                }
+        f1.onSuccess{ v1 in
+            f2.onSuccess { v2 in
+                p.succeed(value: (v1, v2))
             }
         }
-        
-        f1.respond { result in
-            result.withValue { succeedMaybe($0, nil) }
-            result.withError(execute: failMaybe)
-        }
-        f2.respond { result in
-            result.withValue { succeedMaybe(nil, $0) }
-            result.withError(execute: failMaybe)
-        }
-    
+        f1.onError(execute: failOnce)
+        f2.onError(execute: failOnce)
         return p
-    }
-    
+    }    
 }
 
 private extension Optional {
