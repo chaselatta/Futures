@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FutureError: ErrorProtocol {
+public enum FutureError: ErrorProtocol {
     
     /// Represents a failure due to an empty optional
     case optionalFailure

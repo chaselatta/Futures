@@ -76,10 +76,10 @@ public class Promise<Element>: Future<Element> {
     /// with differing generics being weak/unowned.
     private var proxyCancelAction = {}
     
-    // Promise providers can set this value which will be
-    // invoked when the promise receives a cancel signal.
-    // Note: this variable should be set at the time of 
-    // the Promise's creation.
+    /// Promise providers can set this value which will be
+    /// invoked when the promise receives a cancel signal.
+    /// Note: this variable should be set at the time of
+    /// the Promise's creation.
     public var cancelAction: () -> Void = {}
     
     // MARK: Initialization
