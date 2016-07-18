@@ -12,20 +12,16 @@ public enum Result<T> {
     case satisfied(T)
     case failed(ErrorProtocol)
     
-    @discardableResult
-    public func withValue(execute: (T) -> Void) -> Result<T> {
+    public func withValue(execute: (T) -> Void) {
         if case .satisfied(let v) = self {
             execute(v)
         }
-        return self
     }
     
-    @discardableResult
-    public func withError(execute: (ErrorProtocol) -> Void) -> Result<T> {
+    public func withError(execute: (ErrorProtocol) -> Void) {
         if case .failed(let e) = self {
             execute(e)
         }
-        return self
     }
     
     public var value: T? {

@@ -28,13 +28,11 @@ public struct Futures {
             group.enter()
             f.respond { result in
                 queue.sync {
-                    switch result {
-                    case .satisfied(let v):
-                        results[idx] = v
-                    case .failed(let e):
+                    result.withValue { results[idx] = $0 }
+                    result.withError { error in
                         if firstError == nil {
-                            firstError = e
-                            p.fail(error: e)
+                            firstError = error
+                            p.fail(error: error)
                         }
                     }
                 }
@@ -99,44 +97,63 @@ public struct Futures {
     /// the results. This method is similar to collect with the exception that it supports
     /// multiple types.
     public static func zip<T, U>(_ f1: Future<T>, _ f2: Future<U>) -> Future<(T, U)> {
-        // This is a really ugly implementation and I would like to clean it up but I just wanted something that works
         let p = Promise<(T, U)>()
         var first: T?
         var second: U?
         var failed = false
-        let context = InvocationContext.sync(on: DispatchQueue(label: "zip-queue"))
+        let queue = DispatchQueue(label: "zip-queue")
         
-        let succeedMaybe = {
-            if let first = first, second = second {
-                p.succeed(value: (first, second))
+
+        let succeedMaybe = { (firstMaybe: T?, secondMaybe: U?) in
+            queue.sync {
+                if failed {
+                    return
+                }
+                
+                first = first.take(value: firstMaybe)
+                second = second.take(value: secondMaybe)
+                
+                if let first = first, second = second {
+                    p.succeed(value: (first, second))
+                }
             }
         }
         
-        f1.onSuccess(context: context) { v in
-            first = v
-            succeedMaybe()
-        }
-        
-        f2.onSuccess(context: context) { v in
-            second = v
-            succeedMaybe()
-        }
-        
-        f1.onError(context: context) { e in
-            if !failed {
-                p.fail(error: e)
-                failed = true
+        let failMaybe = { (error: ErrorProtocol?) in
+            queue.sync {
+                if failed {
+                    return
+                }
+                
+                if let error = error {
+                    p.fail(error: error)
+                    failed = true
+                }
             }
         }
         
-        f2.onError(context: context) { e in
-            if !failed {
-                p.fail(error: e)
-                failed = true
-            }
+        f1.respond { result in
+            result.withValue { succeedMaybe($0, nil) }
+            result.withError(execute: failMaybe)
         }
-        
+        f2.respond { result in
+            result.withValue { succeedMaybe(nil, $0) }
+            result.withError(execute: failMaybe)
+        }
+    
         return p
     }
     
+}
+
+private extension Optional {
+    
+    func take(value: Wrapped?) -> Optional<Wrapped> {
+        switch self {
+        case .some:
+            return self
+        case .none:
+            return value
+        }
+    }
 }

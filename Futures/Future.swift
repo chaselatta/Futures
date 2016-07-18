@@ -15,15 +15,11 @@ public let FutureByTimeoutError = NSError(domain: "com.futures.future", code: 2,
 public class Future<Element> {
     
     public final class func value(_ value: Element) -> Future<Element> {
-        let p = Promise<Element>()
-        p.succeed(value: value)
-        return p
+        return Promise.succeeded(value: value)
     }
     
     public final class func error(_ error: ErrorProtocol) -> Future<Element> {
-        let p = Promise<Element>()
-        p.fail(error: error)
-        return p
+        return Promise.failed(error: error)
     }
     
     public final class func optional(_ value: Element?, error: ErrorProtocol = FutureOptionalFailureError) -> Future<Element> {
@@ -72,28 +68,16 @@ public class Future<Element> {
     // MARK: Side effects
     
     @discardableResult
-    public func onSuccess(context: InvocationContext? = nil, execute f: (Element) -> Void) -> Future {
+    public func onSuccess(execute f: (Element) -> Void) -> Future {
         return respond {
-            $0.withValue { v in
-                self.with(context: context) { f(v) }
-            }
+            $0.withValue(execute: f)
         }
     }
     
     @discardableResult
-    public func onError(context: InvocationContext? = nil, execute f: (ErrorProtocol) -> Void) -> Future {
+    public func onError(execute f: (ErrorProtocol) -> Void) -> Future {
         return respond {
-            $0.withError { error in
-                self.with(context: context) { f(error) }
-            }
-        }
-    }
-    
-    private func with(context: InvocationContext?, execute f: () -> Void) {
-        if let context = context {
-            context.execute(f)
-        } else {
-            f()
+            $0.withError(execute: f)
         }
     }
     

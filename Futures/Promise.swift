@@ -63,6 +63,18 @@ public class Promise<Element>: Future<Element> {
     
     public override init() {}
     
+    public class func succeeded(value: Element) -> Future<Element> {
+        let p = Promise<Element>()
+        p.internalState = .fulfilled(.satisfied(value))
+        return p
+    }
+    
+    public class func failed(error: ErrorProtocol) -> Future<Element> {
+        let p = Promise<Element>()
+        p.internalState = .fulfilled(.failed(error))
+        return p
+    }
+    
     public func succeed(value: Element) {
         let result = Result.satisfied(value)
         fulfill(result)
@@ -163,13 +175,14 @@ public class Promise<Element>: Future<Element> {
     public override func by(when: DispatchTime, error: ErrorProtocol = FutureByTimeoutError) -> Future<Element> {
         let p: Promise<Element> = childPromise()
         let queue = DispatchQueue(label: "promise-by-queue")
-        let ctx = InvocationContext.sync(on: queue)
         var fulfilled = false
         
         let doOnce:  (() -> ()) -> () = { f in
-            if !fulfilled {
-                f()
-                fulfilled = true
+            queue.sync {
+                if !fulfilled {
+                    f()
+                    fulfilled = true
+                }
             }
         }
         
@@ -177,11 +190,11 @@ public class Promise<Element>: Future<Element> {
             doOnce { p.fail(error: error) }
         }
         
-        onSuccess(context: ctx) { v in
+        onSuccess { v in
             doOnce { p.succeed(value: v) }
         }
         
-        onError(context: ctx) { e in
+        onError { e in
             doOnce { p.fail(error: e) }
         }
         

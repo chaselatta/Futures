@@ -23,18 +23,6 @@ class ResultTests: XCTestCase {
         r.withError { XCTAssertEqual($0 as NSError, self.error) }
     }
     
-    func testChainingSatisfied() {
-        Result.satisfied(1)
-            .withError { _ in XCTFail("Should not call this method") }
-            .withValue { XCTAssertEqual($0, 1) }
-    }
-    
-    func testChainingFailed() {
-        Result<Any>.failed(error)
-            .withValue { _ in XCTFail("Should not call this method") }
-            .withError { XCTAssertEqual($0 as NSError, self.error) }
-    }
-    
     func testValue() {
         XCTAssertEqual(Result.satisfied(1).value, 1)
     }
