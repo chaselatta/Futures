@@ -21,7 +21,8 @@ public struct Futures {
         let queue = DispatchQueue(label: "collect-queue")
         
         let p = Promise<[T]>()
-        var results: [T?] = Array(repeating: nil, count: futures.count)
+        let count = futures.count
+        var results: [T?] = Array(repeating: nil, count: count)
         var firstError: ErrorProtocol? = nil
         
         for (idx, f) in futures.enumerated() {
@@ -42,7 +43,7 @@ public struct Futures {
         
         group.notify(queue: queue) {
             let values = results.flatMap { $0 }
-            if values.count == futures.count {
+            if values.count == count {
                 p.succeed(value: values)
             }
         }
@@ -135,17 +136,5 @@ public struct Futures {
         f2.onError(execute: failOnce)
         f3.onError(execute: failOnce)
         return p
-    }
-}
-
-private extension Optional {
-    
-    func takeIfNone(value: Wrapped?) -> Optional<Wrapped> {
-        switch self {
-        case .some:
-            return self
-        case .none:
-            return value
-        }
     }
 }
