@@ -51,7 +51,7 @@ public class Promise<Element>: Future<Element> {
     }
     
     private var parentCancelAction = {}
-    private var innerCancelAction = {}
+    private var proxyCancelAction = {}
     
     // Promise providers can set this value which will be
     // invoked when the promise receives a cancel signal.
@@ -104,9 +104,16 @@ public class Promise<Element>: Future<Element> {
     }
     
     public override func cancel() {
+        /// There is probably a better way to make this work but it works for now
+        
+        /// We have to cancel the parent to propogate up the chain
         parentCancelAction()
+        
+        /// We have to cancel self
         cancelAction()
-        innerCancelAction()
+        
+        /// We have to cancel any proxies
+        proxyCancelAction()
     }
     
     public override func map<T>(f: (Element) -> T) -> Future<T> {
@@ -123,32 +130,35 @@ public class Promise<Element>: Future<Element> {
     }
     
     public override func flatMap<T>(f: (Element) -> Future<T>) -> Future<T> {
-        let p: Promise<T> = childPromise()
+        let outer: Promise<T> = childPromise()
         
-        onSuccess { value in
-            let inner = f(value)
-            inner.onSuccess(execute: p.succeed).onError(execute: p.fail)
-            p.innerCancelAction = { inner.cancel() }
+        onSuccess {
+            outer.proxyVia(promise: f($0))
         }
         
-        onError(execute: p.fail)
+        onError(execute: outer.fail)
         
-        return p
+        return outer
     }
-
+    
     public override func rescue(f: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
-        let p: Promise<Element> = childPromise()
+        let outer: Promise<Element> = childPromise()
         
-        onSuccess(execute: p.succeed)
+        onSuccess(execute: outer.succeed)
         
-        onError { error in
-            let inner = f(error)
-            inner.onSuccess(execute: p.succeed).onError(execute: p.fail)
-            p.innerCancelAction = { inner.cancel() }
+        onError {
+            outer.proxyVia(promise: f($0))
         }
 
-        return p
+        return outer
     }
+    
+    private func proxyVia(promise: Future<Element>) {
+        promise.onSuccess(execute: succeed)
+        promise.onError(execute: fail)
+        proxyCancelAction = { promise.cancel() }
+    }
+
     
     public override func by(when: DispatchTime, error: ErrorProtocol = FutureByTimeoutError) -> Future<Element> {
         let p: Promise<Element> = childPromise()

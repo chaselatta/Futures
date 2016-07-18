@@ -306,51 +306,51 @@ class PromiseTests: XCTestCase {
     
     func testCancelInvokesCancelAction() {
         let p = Promise<Any>()
-        var cancelled = false
-        p.cancelAction = { cancelled = true }
+        var cancelCount = 0
+        p.cancelAction = { cancelCount += 1 }
         
         p.cancel()
-        XCTAssertTrue(cancelled)
+        XCTAssertEqual(cancelCount, 1)
     }
     
     func testCancelInvokesCancelAction_mapped() {
         let parent = Promise<Any>()
         let child = parent.map { _ in "foo" }
         
-        var cancelled = false
+        var cancelCount = 0
         
-        parent.cancelAction = { cancelled = true }
+        parent.cancelAction = { cancelCount += 1 }
         
         child.cancel()
-        XCTAssertTrue(cancelled)
+        XCTAssertEqual(cancelCount, 1)
     }
     
     func testCancelInvokesCancelAction_flatMapped() {
         let parent = Promise<Any>()
         let child = parent.flatMap { _ in Future.value(1) }
         
-        var cancelled = false
+        var cancelCount = 0
         
-        parent.cancelAction = { cancelled = true }
+        parent.cancelAction = { cancelCount += 1 }
         
         child.cancel()
-        XCTAssertTrue(cancelled)
+        XCTAssertEqual(cancelCount, 1)
     }
     
     func testCancelInvokesCancelAction_flatMappedPromise() {
         let parent = Promise<Int>()
-        var cancelled = false
+        var cancelCount = 0
 
         let child = parent.flatMap { v -> Future<Int> in
             let p = Promise<Int>()
-            p.cancelAction = { cancelled = true }
+            p.cancelAction = { cancelCount += 1 }
             return p
         }
         
         // need this to succeed so the flatMap gets invoked
         parent.succeed(value: 1)
         child.cancel()
-        XCTAssertTrue(cancelled)
+        XCTAssertEqual(cancelCount, 1)
     }
     
     func testBy_succeed() {
