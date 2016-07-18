@@ -131,4 +131,66 @@ class ZipTests: XCTestCase {
         waitForExpectations(withTimeout: 1, handler: nil)
     }
     
+    func testZip3_allSucceed() {
+        let exp = expectation(withDescription: "execute on succeed")
+        
+        Futures.zip(.value(1), .value("foo"), .value([1, 2]))
+            .onSuccess { v in
+                XCTAssertEqual(v.0, 1)
+                XCTAssertEqual(v.1, "foo")
+                XCTAssertEqual(v.2, [1, 2])
+                exp.fulfill()
+            }.onError { _ in XCTFail() }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testZip3_delayedFirstFail() {
+        let p = Promise<String>()
+        let exp = expectation(withDescription: "execute on error")
+        
+        Futures.zip(p, .value(1), .value(2))
+            .onError { e in
+                exp.fulfill()
+            }.onSuccess { _ in XCTFail() }
+        
+        DispatchQueue.main.async {
+            p.fail(error: ZipError())
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testZip3_delayedSecondFail() {
+        let p = Promise<String>()
+        let exp = expectation(withDescription: "execute on error")
+        
+        Futures.zip(.value(1), p, .value(2))
+            .onError { e in
+                exp.fulfill()
+            }.onSuccess { _ in XCTFail() }
+        
+        DispatchQueue.main.async {
+            p.fail(error: ZipError())
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
+    func testZip3_delayedLastFail() {
+        let p = Promise<String>()
+        let exp = expectation(withDescription: "execute on error")
+        
+        Futures.zip(.value(1), .value(2), p)
+            .onError { e in
+                exp.fulfill()
+            }.onSuccess { _ in XCTFail() }
+        
+        DispatchQueue.main.async {
+            p.fail(error: ZipError())
+        }
+        
+        waitForExpectations(withTimeout: 1, handler: nil)
+    }
+    
 }

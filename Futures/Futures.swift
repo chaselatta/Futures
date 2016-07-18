@@ -113,7 +113,29 @@ public struct Futures {
         f1.onError(execute: failOnce)
         f2.onError(execute: failOnce)
         return p
-    }    
+    }
+    
+    public static func zip<A, B, C>(_ f1: Future<A>, _ f2: Future<B>, _ f3: Future<C>) -> Future<(A, B, C)> {
+        let p = Promise<(A, B, C)>()
+        
+        let failOnce = { (e: ErrorProtocol) in
+            if p.poll() == nil {
+                p.fail(error: e)
+            }
+        }
+        
+        f1.onSuccess{ v1 in
+            f2.onSuccess { v2 in
+                f3.onSuccess { v3 in
+                    p.succeed(value: (v1, v2, v3))
+                }
+            }
+        }
+        f1.onError(execute: failOnce)
+        f2.onError(execute: failOnce)
+        f3.onError(execute: failOnce)
+        return p
+    }
 }
 
 private extension Optional {
