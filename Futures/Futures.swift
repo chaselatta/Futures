@@ -110,8 +110,8 @@ public struct Futures {
                     return
                 }
                 
-                first = first.take(value: firstMaybe)
-                second = second.take(value: secondMaybe)
+                first = first.takeIfNone(value: firstMaybe)
+                second = second.takeIfNone(value: secondMaybe)
                 
                 if let first = first, second = second {
                     p.succeed(value: (first, second))
@@ -148,7 +148,7 @@ public struct Futures {
 
 private extension Optional {
     
-    func take(value: Wrapped?) -> Optional<Wrapped> {
+    func takeIfNone(value: Wrapped?) -> Optional<Wrapped> {
         switch self {
         case .some:
             return self

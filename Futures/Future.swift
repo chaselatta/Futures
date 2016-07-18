@@ -141,7 +141,7 @@ public class Future<Element> {
     /// executes the given transform upon failure of the future
     /// - Parameter transform: the method to transform the given error
     /// - Returns: a transformed future
-    public func rescue(f: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
+    public func rescue(transform: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
         fatalError("rescue is abstract")
     }
     
