@@ -19,21 +19,7 @@ class FutureTests: XCTestCase {
         f.onError { _ in exp.fulfill() }
         waitForExpectations(withTimeout: 1, handler: nil)
     }
-    
-    func testOptionalFailureWithError() {
-        let v: Int? = nil
-        let error = NSError(domain: "my-domain", code: 123, userInfo: nil)
-        
-        let f = Future.optional(v, error: error)
-        let exp = expectation(withDescription: "execute on error")
-        
-        f.onError { e in
-            XCTAssertEqual(e as NSError, error)
-            exp.fulfill()
-        }
-        waitForExpectations(withTimeout: 1, handler: nil)
-    }
-    
+
     func testOptionalSucceed() {
         let expected: Int? = 1
         

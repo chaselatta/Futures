@@ -399,24 +399,6 @@ class PromiseTests: XCTestCase {
         waitForExpectations(withTimeout: 1, handler: nil)
     }
     
-    func testBy_failWithError() {
-        let t = DispatchTime.now() + .milliseconds(10)
-        let error = NSError(domain: "my-error", code: 999, userInfo: nil)
-        let exp  = expectation(withDescription: "wait for by")
-        
-        let p = Promise<Int>()
-        DispatchQueue.main.after(when: t + .seconds(1)) {
-            p.fail(error: NSError())
-        }
-        
-        p.by(when: t, error: error).onError { e in
-                XCTAssertEqual(e as NSError, error)
-                exp.fulfill()
-        }
-        
-        waitForExpectations(withTimeout: 1, handler: nil)
-    }
-    
     func testBy_withMap() {
         let t = DispatchTime.now() + .milliseconds(2)
         let exp  = expectation(withDescription: "wait for by")

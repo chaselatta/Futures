@@ -172,7 +172,7 @@ public class Promise<Element>: Future<Element> {
     }
 
     
-    public override func by(when: DispatchTime, error: ErrorProtocol = FutureByTimeoutError) -> Future<Element> {
+    public override func by(when: DispatchTime) -> Future<Element> {
         let p: Promise<Element> = childPromise()
         let queue = DispatchQueue(label: "promise-by-queue")
         var fulfilled = false
@@ -187,7 +187,7 @@ public class Promise<Element>: Future<Element> {
         }
         
         Future.after(when: when, value: Void()).onSuccess { _ in
-            doOnce { p.fail(error: error) }
+            doOnce { p.fail(error: FutureError.byTimeout) }
         }
         
         onSuccess { v in
