@@ -11,6 +11,8 @@
 		DB62A6631D2EF52A00AE25C8 /* Futures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB62A6581D2EF52A00AE25C8 /* Futures.framework */; };
 		DB62A6731D2EF57200AE25C8 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6721D2EF57200AE25C8 /* Future.swift */; };
 		DB62A6751D2F01CE00AE25C8 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6741D2F01CE00AE25C8 /* Promise.swift */; };
+		DB9D4F911D3CC57A00E6E9CE /* Await.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D4F901D3CC57A00E6E9CE /* Await.swift */; };
+		DB9D4F931D3D76AD00E6E9CE /* AwaitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D4F921D3D76AD00E6E9CE /* AwaitTests.swift */; };
 		DBCB61961D36DF0A00BA79D7 /* URLSessionAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB61951D36DF0A00BA79D7 /* URLSessionAdaptor.swift */; };
 		DBCB619C1D36FFDF00BA79D7 /* Futures.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619B1D36FFDF00BA79D7 /* Futures.swift */; };
 		DBCB619E1D36FFF600BA79D7 /* CollectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619D1D36FFF600BA79D7 /* CollectTests.swift */; };
@@ -39,6 +41,8 @@
 		DB62A6691D2EF52A00AE25C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB62A6721D2EF57200AE25C8 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		DB62A6741D2F01CE00AE25C8 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		DB9D4F901D3CC57A00E6E9CE /* Await.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Await.swift; sourceTree = "<group>"; };
+		DB9D4F921D3D76AD00E6E9CE /* AwaitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwaitTests.swift; sourceTree = "<group>"; };
 		DBCB61951D36DF0A00BA79D7 /* URLSessionAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionAdaptor.swift; sourceTree = "<group>"; };
 		DBCB619B1D36FFDF00BA79D7 /* Futures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Futures.swift; sourceTree = "<group>"; };
 		DBCB619D1D36FFF600BA79D7 /* CollectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectTests.swift; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 			children = (
 				DB62A65D1D2EF52A00AE25C8 /* Info.plist */,
 				DB62A6721D2EF57200AE25C8 /* Future.swift */,
+				DB9D4F901D3CC57A00E6E9CE /* Await.swift */,
 				DBCB619B1D36FFDF00BA79D7 /* Futures.swift */,
 				DB62A6741D2F01CE00AE25C8 /* Promise.swift */,
 				DBCB61951D36DF0A00BA79D7 /* URLSessionAdaptor.swift */,
@@ -102,6 +107,7 @@
 		DB62A6661D2EF52A00AE25C8 /* FuturesTests */ = {
 			isa = PBXGroup;
 			children = (
+				DB9D4F921D3D76AD00E6E9CE /* AwaitTests.swift */,
 				DBFFC7B41D3C29BD00FEB77E /* ResultTests.swift */,
 				DBFFC7B01D38646B00FEB77E /* ZipTests.swift */,
 				DBFFC7AE1D3850C300FEB77E /* FutureTests.swift */,
@@ -229,6 +235,7 @@
 			files = (
 				DBCB61961D36DF0A00BA79D7 /* URLSessionAdaptor.swift in Sources */,
 				DB62A6731D2EF57200AE25C8 /* Future.swift in Sources */,
+				DB9D4F911D3CC57A00E6E9CE /* Await.swift in Sources */,
 				DBFFC7B61D3C36A400FEB77E /* Result.swift in Sources */,
 				DBCB619C1D36FFDF00BA79D7 /* Futures.swift in Sources */,
 				DB62A6751D2F01CE00AE25C8 /* Promise.swift in Sources */,
@@ -239,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB9D4F931D3D76AD00E6E9CE /* AwaitTests.swift in Sources */,
 				DBCB619E1D36FFF600BA79D7 /* CollectTests.swift in Sources */,
 				DB4069371D34AF790065AA1E /* PromiseTests.swift in Sources */,
 				DBFFC7AF1D3850C300FEB77E /* FutureTests.swift in Sources */,
