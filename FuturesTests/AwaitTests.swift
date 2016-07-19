@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Futures
 
 class AwaitTests: XCTestCase {
     
@@ -22,7 +23,7 @@ class AwaitTests: XCTestCase {
     
     
     func testAwaitResult_delayed() {
-        let f = Promise.after(when: .now()  .milliseconds(10), value: 1)
+        let f = Promise.after(when: .now() + .milliseconds(10), value: 1)
         let exp = expectation(withDescription: "wait for promise")
         do {
             let v = try Await.result(future: f)

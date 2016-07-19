@@ -47,6 +47,11 @@ public class Future<Element> {
         }
     }
     
+    /// converts the future to a Future<Void>
+    public func void() -> Future<Void> {
+        return map { _ in Void() }
+    }
+    
     /// Returns a Future that will succeed if the optional function does not throw
     /// and will propogate the error that is thrown
     ///

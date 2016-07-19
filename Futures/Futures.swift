@@ -10,6 +10,10 @@ import Foundation
 
 public struct Futures {
     
+    public static func void() -> Future<Void> {
+        return Future.value(Void())
+    }
+    
     /// Transforms the given array of Futures to a single Future
     /// of all the results.
     ///
@@ -55,7 +59,7 @@ public struct Futures {
     ///
     /// - Parameter futures: An array of Futures to transform
     /// - Returns: A future which will succeed when the first future succeeds
-    ///            and will fail if all of the futures fail
+    ///            and will fail with the last error if all of the futures fail
     public static func first<T>(futures: [Future<T>]) -> Future<T> {
         let group = DispatchGroup()
         let queue = DispatchQueue(label: "first-queue")
@@ -94,36 +98,64 @@ public struct Futures {
         return p
     }
     
+    /// Collects the futures into a single future which will
+    /// signal when completed.
+    ///
+    /// - Parameter futures: the futures to join
+    /// - Returns: a future which is satisfied when all the futures succeed or one fails
+    /// - SeeAlso: `collect` if you care about each result
+    public static func join<T>(futures: [Future<T>]) -> Future<Void> {
+        return collect(futures: futures)
+            .map { _ in Void() }
+    }
+    
+    /// Returns a Future which is satisifed when all of the 
+    /// futures in the collection succeed. The returned Future
+    /// will never fail.
+    public static func all<T>(futures: [Future<T>]) -> Future<Void> {
+        let p = Promise<Void>()
+        
+        collect(futures: futures)
+            .onSuccess { _ in p.succeed(value: Void()) }
+        
+        return p
+    }
+    
+    /// Returns a Future which is satisifed when all of the
+    /// futures in the collection fail. The returned Future
+    /// will never fail.
+    public static func none<T>(futures: [Future<T>]) -> Future<Void> {
+        let p = Promise<Void>()
+        
+        let requireFailure = { (f: Future<T>) in
+            return f.void().rescue { _ in Futures.void() }
+        }
+        
+        collect(futures: futures.map(requireFailure))
+            .onSuccess { _ in p.succeed(value: Void()) }
+        
+        return p
+    }
+    
     /// Takes two Futures of different types and returns a Future tuple with the
     /// the results. This method is similar to collect with the exception that it supports
     /// multiple types.
     public static func zip<T, U>(_ f1: Future<T>, _ f2: Future<U>) -> Future<(T, U)> {
         let p = Promise<(T, U)>()
         
-        let failOnce = { (e: ErrorProtocol) in
-            if p.poll() == nil {
-                p.fail(error: e)
-            }
-        }
-        
         f1.onSuccess{ v1 in
             f2.onSuccess { v2 in
                 p.succeed(value: (v1, v2))
             }
         }
-        f1.onError(execute: failOnce)
-        f2.onError(execute: failOnce)
+        
+        collect(futures: [f1.void(), f2.void()])
+            .onError(execute: p.fail)
         return p
     }
     
     public static func zip<A, B, C>(_ f1: Future<A>, _ f2: Future<B>, _ f3: Future<C>) -> Future<(A, B, C)> {
         let p = Promise<(A, B, C)>()
-        
-        let failOnce = { (e: ErrorProtocol) in
-            if p.poll() == nil {
-                p.fail(error: e)
-            }
-        }
         
         f1.onSuccess{ v1 in
             f2.onSuccess { v2 in
@@ -132,9 +164,10 @@ public struct Futures {
                 }
             }
         }
-        f1.onError(execute: failOnce)
-        f2.onError(execute: failOnce)
-        f3.onError(execute: failOnce)
+        
+        collect(futures: [f1.void(), f2.void(), f3.void()])
+            .onError(execute: p.fail)
         return p
     }
+    
 }
