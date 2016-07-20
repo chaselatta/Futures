@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB62A6571D2EF52A00AE25C8"
+               BlueprintIdentifier = "DB103AFF1D400DB9006BBE4B"
                BuildableName = "Futures.framework"
-               BlueprintName = "Futures"
+               BlueprintName = "Futures-macOS"
                ReferencedContainer = "container:Futures.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB62A6611D2EF52A00AE25C8"
-               BuildableName = "FuturesTests.xctest"
-               BlueprintName = "FuturesTests"
+               BlueprintIdentifier = "DB7E28031D4036C200A5E07B"
+               BuildableName = "FuturesTests-macOS.xctest"
+               BlueprintName = "FuturesTests-macOS"
                ReferencedContainer = "container:Futures.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB62A6571D2EF52A00AE25C8"
+            BlueprintIdentifier = "DB103AFF1D400DB9006BBE4B"
             BuildableName = "Futures.framework"
-            BlueprintName = "Futures"
+            BlueprintName = "Futures-macOS"
             ReferencedContainer = "container:Futures.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB62A6571D2EF52A00AE25C8"
+            BlueprintIdentifier = "DB103AFF1D400DB9006BBE4B"
             BuildableName = "Futures.framework"
-            BlueprintName = "Futures"
+            BlueprintName = "Futures-macOS"
             ReferencedContainer = "container:Futures.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB62A6571D2EF52A00AE25C8"
+            BlueprintIdentifier = "DB103AFF1D400DB9006BBE4B"
             BuildableName = "Futures.framework"
-            BlueprintName = "Futures"
+            BlueprintName = "Futures-macOS"
             ReferencedContainer = "container:Futures.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

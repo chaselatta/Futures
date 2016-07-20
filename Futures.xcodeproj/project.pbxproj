@@ -11,6 +11,21 @@
 		DB62A6631D2EF52A00AE25C8 /* Futures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB62A6581D2EF52A00AE25C8 /* Futures.framework */; };
 		DB62A6731D2EF57200AE25C8 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6721D2EF57200AE25C8 /* Future.swift */; };
 		DB62A6751D2F01CE00AE25C8 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6741D2F01CE00AE25C8 /* Promise.swift */; };
+		DB7E28091D4036C200A5E07B /* Futures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB103B001D400DB9006BBE4B /* Futures.framework */; };
+		DB7E280F1D4036CB00A5E07B /* FuturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D4F941D3EA31300E6E9CE /* FuturesTests.swift */; };
+		DB7E28101D4036CB00A5E07B /* AwaitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D4F921D3D76AD00E6E9CE /* AwaitTests.swift */; };
+		DB7E28111D4036CB00A5E07B /* ResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFC7B41D3C29BD00FEB77E /* ResultTests.swift */; };
+		DB7E28121D4036CB00A5E07B /* ZipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFC7B01D38646B00FEB77E /* ZipTests.swift */; };
+		DB7E28131D4036CB00A5E07B /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFC7AE1D3850C300FEB77E /* FutureTests.swift */; };
+		DB7E28141D4036CB00A5E07B /* FirstsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619F1D372BF200BA79D7 /* FirstsTests.swift */; };
+		DB7E28151D4036CB00A5E07B /* CollectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619D1D36FFF600BA79D7 /* CollectTests.swift */; };
+		DB7E28161D4036CB00A5E07B /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4069361D34AF790065AA1E /* PromiseTests.swift */; };
+		DB86FD1F1D40380600FEC998 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6721D2EF57200AE25C8 /* Future.swift */; };
+		DB86FD201D40380600FEC998 /* Await.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D4F901D3CC57A00E6E9CE /* Await.swift */; };
+		DB86FD211D40380600FEC998 /* Futures.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB619B1D36FFDF00BA79D7 /* Futures.swift */; };
+		DB86FD221D40380600FEC998 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62A6741D2F01CE00AE25C8 /* Promise.swift */; };
+		DB86FD231D40380600FEC998 /* URLSessionAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB61951D36DF0A00BA79D7 /* URLSessionAdaptor.swift */; };
+		DB86FD241D40380600FEC998 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFC7B21D3C299C00FEB77E /* Result.swift */; };
 		DB9D4F911D3CC57A00E6E9CE /* Await.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D4F901D3CC57A00E6E9CE /* Await.swift */; };
 		DB9D4F931D3D76AD00E6E9CE /* AwaitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D4F921D3D76AD00E6E9CE /* AwaitTests.swift */; };
 		DB9D4F951D3EA31300E6E9CE /* FuturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D4F941D3EA31300E6E9CE /* FuturesTests.swift */; };
@@ -32,16 +47,27 @@
 			remoteGlobalIDString = DB62A6571D2EF52A00AE25C8;
 			remoteInfo = Futures;
 		};
+		DB7E280A1D4036C200A5E07B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB62A64F1D2EF52A00AE25C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB103AFF1D400DB9006BBE4B;
+			remoteInfo = "Futures-macOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB103B001D400DB9006BBE4B /* Futures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Futures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB103B031D400DB9006BBE4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB4069361D34AF790065AA1E /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
 		DB62A6581D2EF52A00AE25C8 /* Futures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Futures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB62A65D1D2EF52A00AE25C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB62A6621D2EF52A00AE25C8 /* FuturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FuturesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB62A6621D2EF52A00AE25C8 /* FuturesTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FuturesTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB62A6691D2EF52A00AE25C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB62A6721D2EF57200AE25C8 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		DB62A6741D2F01CE00AE25C8 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		DB7E28041D4036C200A5E07B /* FuturesTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FuturesTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB7E28081D4036C200A5E07B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "FuturesTests-macOS/Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB9D4F901D3CC57A00E6E9CE /* Await.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Await.swift; sourceTree = "<group>"; };
 		DB9D4F921D3D76AD00E6E9CE /* AwaitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwaitTests.swift; sourceTree = "<group>"; };
 		DB9D4F941D3EA31300E6E9CE /* FuturesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuturesTests.swift; sourceTree = "<group>"; };
@@ -56,6 +82,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DB103AFC1D400DB9006BBE4B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB62A6541D2EF52A00AE25C8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,14 +104,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB7E28011D4036C200A5E07B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB7E28091D4036C200A5E07B /* Futures.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB103B011D400DB9006BBE4B /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				DB103B031D400DB9006BBE4B /* Info.plist */,
+			);
+			name = macOS;
+			path = "Futures-macOS";
+			sourceTree = SOURCE_ROOT;
+		};
 		DB62A64E1D2EF52A00AE25C8 = {
 			isa = PBXGroup;
 			children = (
-				DB62A65A1D2EF52A00AE25C8 /* Futures */,
-				DB62A6661D2EF52A00AE25C8 /* FuturesTests */,
+				DB62A65A1D2EF52A00AE25C8 /* Source */,
+				DB62A6661D2EF52A00AE25C8 /* Tests */,
 				DB62A6591D2EF52A00AE25C8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,26 +137,30 @@
 			isa = PBXGroup;
 			children = (
 				DB62A6581D2EF52A00AE25C8 /* Futures.framework */,
-				DB62A6621D2EF52A00AE25C8 /* FuturesTests.xctest */,
+				DB62A6621D2EF52A00AE25C8 /* FuturesTests-iOS.xctest */,
+				DB103B001D400DB9006BBE4B /* Futures.framework */,
+				DB7E28041D4036C200A5E07B /* FuturesTests-macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DB62A65A1D2EF52A00AE25C8 /* Futures */ = {
+		DB62A65A1D2EF52A00AE25C8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				DB62A65D1D2EF52A00AE25C8 /* Info.plist */,
 				DB62A6721D2EF57200AE25C8 /* Future.swift */,
 				DB9D4F901D3CC57A00E6E9CE /* Await.swift */,
 				DBCB619B1D36FFDF00BA79D7 /* Futures.swift */,
 				DB62A6741D2F01CE00AE25C8 /* Promise.swift */,
 				DBCB61951D36DF0A00BA79D7 /* URLSessionAdaptor.swift */,
 				DBFFC7B21D3C299C00FEB77E /* Result.swift */,
+				DB86FD251D40388100FEC998 /* iOS */,
+				DB103B011D400DB9006BBE4B /* macOS */,
 			);
+			name = Source;
 			path = Futures;
 			sourceTree = "<group>";
 		};
-		DB62A6661D2EF52A00AE25C8 /* FuturesTests */ = {
+		DB62A6661D2EF52A00AE25C8 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				DB9D4F941D3EA31300E6E9CE /* FuturesTests.swift */,
@@ -117,14 +171,47 @@
 				DBCB619F1D372BF200BA79D7 /* FirstsTests.swift */,
 				DBCB619D1D36FFF600BA79D7 /* CollectTests.swift */,
 				DB4069361D34AF790065AA1E /* PromiseTests.swift */,
+				DB86FD261D4038E200FEC998 /* iOS */,
+				DB86FD271D4038E700FEC998 /* macOS */,
+			);
+			name = Tests;
+			path = FuturesTests;
+			sourceTree = "<group>";
+		};
+		DB86FD251D40388100FEC998 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				DB62A65D1D2EF52A00AE25C8 /* Info.plist */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		DB86FD261D4038E200FEC998 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
 				DB62A6691D2EF52A00AE25C8 /* Info.plist */,
 			);
-			path = FuturesTests;
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		DB86FD271D4038E700FEC998 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				DB7E28081D4036C200A5E07B /* Info.plist */,
+			);
+			name = macOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		DB103AFD1D400DB9006BBE4B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB62A6551D2EF52A00AE25C8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,9 +222,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		DB62A6571D2EF52A00AE25C8 /* Futures */ = {
+		DB103AFF1D400DB9006BBE4B /* Futures-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DB62A66C1D2EF52A00AE25C8 /* Build configuration list for PBXNativeTarget "Futures" */;
+			buildConfigurationList = DB103B051D400DB9006BBE4B /* Build configuration list for PBXNativeTarget "Futures-macOS" */;
+			buildPhases = (
+				DB103AFB1D400DB9006BBE4B /* Sources */,
+				DB103AFC1D400DB9006BBE4B /* Frameworks */,
+				DB103AFD1D400DB9006BBE4B /* Headers */,
+				DB103AFE1D400DB9006BBE4B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Futures-macOS";
+			productName = "Futures-macOS";
+			productReference = DB103B001D400DB9006BBE4B /* Futures.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DB62A6571D2EF52A00AE25C8 /* Futures-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB62A66C1D2EF52A00AE25C8 /* Build configuration list for PBXNativeTarget "Futures-iOS" */;
 			buildPhases = (
 				DB62A6531D2EF52A00AE25C8 /* Sources */,
 				DB62A6541D2EF52A00AE25C8 /* Frameworks */,
@@ -148,14 +253,14 @@
 			);
 			dependencies = (
 			);
-			name = Futures;
+			name = "Futures-iOS";
 			productName = Futures;
 			productReference = DB62A6581D2EF52A00AE25C8 /* Futures.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DB62A6611D2EF52A00AE25C8 /* FuturesTests */ = {
+		DB62A6611D2EF52A00AE25C8 /* FuturesTests-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DB62A66F1D2EF52A00AE25C8 /* Build configuration list for PBXNativeTarget "FuturesTests" */;
+			buildConfigurationList = DB62A66F1D2EF52A00AE25C8 /* Build configuration list for PBXNativeTarget "FuturesTests-iOS" */;
 			buildPhases = (
 				DB62A65E1D2EF52A00AE25C8 /* Sources */,
 				DB62A65F1D2EF52A00AE25C8 /* Frameworks */,
@@ -166,9 +271,27 @@
 			dependencies = (
 				DB62A6651D2EF52A00AE25C8 /* PBXTargetDependency */,
 			);
-			name = FuturesTests;
+			name = "FuturesTests-iOS";
 			productName = FuturesTests;
-			productReference = DB62A6621D2EF52A00AE25C8 /* FuturesTests.xctest */;
+			productReference = DB62A6621D2EF52A00AE25C8 /* FuturesTests-iOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DB7E28031D4036C200A5E07B /* FuturesTests-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB7E280C1D4036C200A5E07B /* Build configuration list for PBXNativeTarget "FuturesTests-macOS" */;
+			buildPhases = (
+				DB7E28001D4036C200A5E07B /* Sources */,
+				DB7E28011D4036C200A5E07B /* Frameworks */,
+				DB7E28021D4036C200A5E07B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB7E280B1D4036C200A5E07B /* PBXTargetDependency */,
+			);
+			name = "FuturesTests-macOS";
+			productName = "FuturesTests-macOS";
+			productReference = DB7E28041D4036C200A5E07B /* FuturesTests-macOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -181,6 +304,12 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Chase Latta";
 				TargetAttributes = {
+					DB103AFF1D400DB9006BBE4B = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = AQ74ZMW4TS;
+						DevelopmentTeamName = "Chase Latta (Personal Team)";
+						ProvisioningStyle = Automatic;
+					};
 					DB62A6571D2EF52A00AE25C8 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AQ74ZMW4TS;
@@ -189,6 +318,12 @@
 						ProvisioningStyle = Automatic;
 					};
 					DB62A6611D2EF52A00AE25C8 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = AQ74ZMW4TS;
+						DevelopmentTeamName = "Chase Latta (Personal Team)";
+						ProvisioningStyle = Automatic;
+					};
+					DB7E28031D4036C200A5E07B = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AQ74ZMW4TS;
 						DevelopmentTeamName = "Chase Latta (Personal Team)";
@@ -208,13 +343,22 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DB62A6571D2EF52A00AE25C8 /* Futures */,
-				DB62A6611D2EF52A00AE25C8 /* FuturesTests */,
+				DB62A6571D2EF52A00AE25C8 /* Futures-iOS */,
+				DB103AFF1D400DB9006BBE4B /* Futures-macOS */,
+				DB62A6611D2EF52A00AE25C8 /* FuturesTests-iOS */,
+				DB7E28031D4036C200A5E07B /* FuturesTests-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DB103AFE1D400DB9006BBE4B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB62A6561D2EF52A00AE25C8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -229,9 +373,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB7E28021D4036C200A5E07B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DB103AFB1D400DB9006BBE4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB86FD241D40380600FEC998 /* Result.swift in Sources */,
+				DB86FD211D40380600FEC998 /* Futures.swift in Sources */,
+				DB86FD201D40380600FEC998 /* Await.swift in Sources */,
+				DB86FD1F1D40380600FEC998 /* Future.swift in Sources */,
+				DB86FD231D40380600FEC998 /* URLSessionAdaptor.swift in Sources */,
+				DB86FD221D40380600FEC998 /* Promise.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB62A6531D2EF52A00AE25C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -260,17 +424,81 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB7E28001D4036C200A5E07B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB7E28161D4036CB00A5E07B /* PromiseTests.swift in Sources */,
+				DB7E280F1D4036CB00A5E07B /* FuturesTests.swift in Sources */,
+				DB7E28101D4036CB00A5E07B /* AwaitTests.swift in Sources */,
+				DB7E28131D4036CB00A5E07B /* FutureTests.swift in Sources */,
+				DB7E28141D4036CB00A5E07B /* FirstsTests.swift in Sources */,
+				DB7E28111D4036CB00A5E07B /* ResultTests.swift in Sources */,
+				DB7E28121D4036CB00A5E07B /* ZipTests.swift in Sources */,
+				DB7E28151D4036CB00A5E07B /* CollectTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		DB62A6651D2EF52A00AE25C8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DB62A6571D2EF52A00AE25C8 /* Futures */;
+			target = DB62A6571D2EF52A00AE25C8 /* Futures-iOS */;
 			targetProxy = DB62A6641D2EF52A00AE25C8 /* PBXContainerItemProxy */;
+		};
+		DB7E280B1D4036C200A5E07B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB103AFF1D400DB9006BBE4B /* Futures-macOS */;
+			targetProxy = DB7E280A1D4036C200A5E07B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		DB103B061D400DB9006BBE4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Futures-macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chaselatta.Futures-macOS";
+				PRODUCT_NAME = Futures;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		DB103B071D400DB9006BBE4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Futures-macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chaselatta.Futures-macOS";
+				PRODUCT_NAME = Futures;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		DB62A66A1D2EF52A00AE25C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -378,7 +606,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaselatta.Futures;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Futures;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -397,7 +625,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaselatta.Futures;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Futures;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -425,9 +653,48 @@
 			};
 			name = Release;
 		};
+		DB7E280D1D4036C200A5E07B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "FuturesTests-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chaselatta.FuturesTests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		DB7E280E1D4036C200A5E07B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "FuturesTests-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chaselatta.FuturesTests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DB103B051D400DB9006BBE4B /* Build configuration list for PBXNativeTarget "Futures-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB103B061D400DB9006BBE4B /* Debug */,
+				DB103B071D400DB9006BBE4B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DB62A6521D2EF52A00AE25C8 /* Build configuration list for PBXProject "Futures" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -437,7 +704,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DB62A66C1D2EF52A00AE25C8 /* Build configuration list for PBXNativeTarget "Futures" */ = {
+		DB62A66C1D2EF52A00AE25C8 /* Build configuration list for PBXNativeTarget "Futures-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB62A66D1D2EF52A00AE25C8 /* Debug */,
@@ -446,11 +713,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DB62A66F1D2EF52A00AE25C8 /* Build configuration list for PBXNativeTarget "FuturesTests" */ = {
+		DB62A66F1D2EF52A00AE25C8 /* Build configuration list for PBXNativeTarget "FuturesTests-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB62A6701D2EF52A00AE25C8 /* Debug */,
 				DB62A6711D2EF52A00AE25C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB7E280C1D4036C200A5E07B /* Build configuration list for PBXNativeTarget "FuturesTests-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB7E280D1D4036C200A5E07B /* Debug */,
+				DB7E280E1D4036C200A5E07B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
