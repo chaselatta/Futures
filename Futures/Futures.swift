@@ -170,4 +170,33 @@ public struct Futures {
         return p
     }
     
+    /// Same thing as calling zip + map
+    /// Not yet tested
+    private static func combine<A, B, C>(_ f1: Future<A>, _ f2: Future<B>, transform: (A, B) -> C) -> Future<C> {
+        return zip(f1, f2).map(transform: transform)
+    }
+    
+    /// Executes a given Future multiple times. This function works by invoking the
+    /// next closure and if a Future is returned waits for it to succeed. When it succeeds
+    /// the value is passed back into the closure and the process repeats. When no Future
+    /// is returned from the next function the Future is satisfied. If any futures fail
+    /// the outer future fails as well.
+    /// Not yet tested
+    private static func repeating<T>(initial: T, next: (T) -> Future<T>?) -> Future<Void> {
+        let p = Promise<Void>()
+
+        func inner(_ value: T) {
+            if let nextFuture = next(value) {
+                nextFuture
+                    .onSuccess { inner($0) }
+                    .onError(execute: p.fail)
+            } else {
+                p.succeed(value: Void())
+            }
+        }
+        inner(initial)
+
+        return p
+    }
+    
 }
