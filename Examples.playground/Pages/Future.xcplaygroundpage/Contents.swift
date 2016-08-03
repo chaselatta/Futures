@@ -47,18 +47,17 @@ The power of Futures lies in their transformations. Futures can be transformed u
 
 let intFuture = Future.value(1)
 let stringFuture = intFuture.map { String($0) }
-stringFuture.onSuccess {
+stringFuture.onSuccess { _ in
 //    showValue($0)
 }
 
 let newFuture = intFuture.flatMap { _ in Future.value("hello, world") }
-newFuture {
+newFuture.onSuccess { _ in
 //    showValue($0)
 }
 
-let rescuedFuture = Future<String>.error(ExampleError.generic)
-    .rescue { _ in Future.value("Hello, world") }
-rescuedFuture {
+let rescuedFuture = Future<String>.error(ExampleError.generic).rescue { _ in Future.value("Hello, world") }
+rescuedFuture.onSuccess { _ in
 //    showValue($0)
 }
 
