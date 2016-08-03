@@ -27,7 +27,7 @@ public struct Futures {
         let p = Promise<[T]>()
         let count = futures.count
         var results: [T?] = Array(repeating: nil, count: count)
-        var firstError: ErrorProtocol? = nil
+        var firstError: Error? = nil
         
         for (idx, f) in futures.enumerated() {
             group.enter()
@@ -65,7 +65,7 @@ public struct Futures {
         let queue = DispatchQueue(label: "first-queue")
         
         let p = Promise<T>()
-        var lastError: ErrorProtocol?
+        var lastError: Error?
         var succeeded = false
         
         for f in futures {

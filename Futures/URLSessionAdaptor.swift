@@ -41,7 +41,7 @@ public struct URLSessionAdaptor {
         let handler = { (data: Data?, response: URLResponse?, error: NSError?) in
             if let error = error {
                 promise.fail(error: error)
-            } else if let data = data, response = response {
+            } else if let data = data, let response = response {
                 let taskResponse = DataTaskResponse(data: data, response: response)
                 promise.succeed(value: taskResponse)
             } else {

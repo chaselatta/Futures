@@ -24,7 +24,7 @@ public class Promise<Element>: Future<Element> {
     private var internalState: PromiseState<Element> = .pending
     
     /// the queue used for synchronizing access to the internal state
-    private let stateQueue = DispatchQueue(label: "com.futures.promise-state-queue", attributes: [.serial], target: nil)
+    private let stateQueue = DispatchQueue(label: "com.futures.promise-state-queue", attributes: [], target: nil)
     
     /// a convenience method for accessing the internalState variable
     private func withStateQueue(f: @noescape () -> Void) {
@@ -54,7 +54,7 @@ public class Promise<Element>: Future<Element> {
     // MARK: Side Effects Management
     
     /// the queue which synchronizes access to the side effects
-    private let sideEffectsQueue = DispatchQueue(label: "com.futures.promise-side-effects-queue", attributes: [.serial], target: nil)
+    private let sideEffectsQueue = DispatchQueue(label: "com.futures.promise-side-effects-queue", attributes: [], target: nil)
     
     /// an array of SideEffect functions to execute
     private var sideEffects = [SideEffect]()
@@ -95,7 +95,7 @@ public class Promise<Element>: Future<Element> {
     }
     
     /// A convenience function for creating a failed promise
-    public class func failed(error: ErrorProtocol) -> Future<Element> {
+    public class func failed(error: Error) -> Future<Element> {
         let p = Promise<Element>()
         p.internalState = .fulfilled(.failed(error))
         return p
@@ -114,7 +114,7 @@ public class Promise<Element>: Future<Element> {
     /// marks the promise as failed
     /// - Parameter error: the error which fails the promise
     /// - Note: this method should not be called if the promise is satisfied/failed already
-    public func fail(error: ErrorProtocol) {
+    public func fail(error: Error) {
         let result = Result<Element>.failed(error)
         fulfill(result)
     }
@@ -186,7 +186,7 @@ public class Promise<Element>: Future<Element> {
         return outer
     }
     
-    public override func rescue(transform: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
+    public override func rescue(transform: (Error) -> Future<Element>) -> Future<Element> {
         let outer: Promise<Element> = childPromise()
         
         onSuccess(execute: outer.succeed)

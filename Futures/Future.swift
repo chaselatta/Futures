@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum FutureError: ErrorProtocol {
+public enum FutureError: Error {
     
     /// Represents a failure due to an empty optional
     case optionalFailure
@@ -30,7 +30,7 @@ public class Future<Element> {
     /// Returns a Future that is failed with the given error
     /// - Parameter error: the error that will fail they future
     /// - Returns: a failed `Future`
-    public final class func error(_ error: ErrorProtocol) -> Future<Element> {
+    public final class func error(_ error: Error) -> Future<Element> {
         return Promise.failed(error: error)
     }
     
@@ -72,7 +72,7 @@ public class Future<Element> {
     /// - Returns: the future which will be fulfilled
     public final class func after(when time: DispatchTime, value: Element) -> Future<Element> {
         let p = Promise<Element>()
-        DispatchQueue.global(attributes: [.qosUserInitiated]).after(when: time) {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: time) {
             p.succeed(value: value)
         }
         return p
@@ -115,7 +115,7 @@ public class Future<Element> {
     /// - Parameter execute: the method to execute
     /// - Returns: a `Future` which can be used to chain on
     @discardableResult
-    public func onError(execute f: (ErrorProtocol) -> Void) -> Future {
+    public func onError(execute f: (Error) -> Void) -> Future {
         return respond {
             $0.withError(execute: f)
         }
@@ -146,7 +146,7 @@ public class Future<Element> {
     /// executes the given transform upon failure of the future
     /// - Parameter transform: the method to transform the given error
     /// - Returns: a transformed future
-    public func rescue(transform: (ErrorProtocol) -> Future<Element>) -> Future<Element> {
+    public func rescue(transform: (Error) -> Future<Element>) -> Future<Element> {
         fatalError("rescue is abstract")
     }
     

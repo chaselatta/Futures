@@ -15,7 +15,7 @@ public struct Await {
         let semaphore = DispatchSemaphore(value: 0)
         
         var valueMaybe: T? = nil
-        var errorMaybe: ErrorProtocol? = nil
+        var errorMaybe: Error? = nil
         
         future.respond { result in
             result.withValue { valueMaybe = $0 }

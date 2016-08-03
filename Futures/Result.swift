@@ -10,7 +10,7 @@ import Foundation
 
 public enum Result<T> {
     case satisfied(T)
-    case failed(ErrorProtocol)
+    case failed(Error)
     
     public func withValue(execute: (T) -> Void) {
         if case .satisfied(let v) = self {
@@ -18,7 +18,7 @@ public enum Result<T> {
         }
     }
     
-    public func withError(execute: (ErrorProtocol) -> Void) {
+    public func withError(execute: (Error) -> Void) {
         if case .failed(let e) = self {
             execute(e)
         }
@@ -30,8 +30,8 @@ public enum Result<T> {
         return value
     }
     
-    public var error: ErrorProtocol? {
-        var error: ErrorProtocol? = nil
+    public var error: Error? {
+        var error: Error? = nil
         withError { error = $0 }
         return error
     }
