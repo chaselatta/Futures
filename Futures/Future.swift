@@ -47,11 +47,6 @@ public class Future<Element> {
         }
     }
     
-    /// converts the future to a Future<Void>
-    public func void() -> Future<Void> {
-        return map { _ in Void() }
-    }
-    
     /// Returns a Future that will succeed if the optional function does not throw
     /// and will propogate the error that is thrown
     ///
@@ -155,6 +150,11 @@ public class Future<Element> {
     /// - Returns: a `Future` which will fail if not successful by the given time
     public func by(when: DispatchTime) -> Future<Element> {
         fatalError("by is abstract")
+    }
+    
+    /// converts the future to a Future<Void>
+    public func void() -> Future<Void> {
+        return map { _ in Void() }
     }
 }
 
