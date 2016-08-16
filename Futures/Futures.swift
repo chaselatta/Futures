@@ -172,7 +172,7 @@ public struct Futures {
     
     /// Same thing as calling zip + map
     /// Not yet tested
-    private static func combine<A, B, C>(_ f1: Future<A>, _ f2: Future<B>, transform: (A, B) -> C) -> Future<C> {
+    private static func combine<A, B, C>(_ f1: Future<A>, _ f2: Future<B>, transform: @escaping (A, B) -> C) -> Future<C> {
         return zip(f1, f2).map(transform: transform)
     }
     
@@ -182,7 +182,7 @@ public struct Futures {
     /// is returned from the next function the Future is satisfied. If any futures fail
     /// the outer future fails as well.
     /// Not yet tested
-    private static func repeating<T>(initial: T, next: (T) -> Future<T>?) -> Future<Void> {
+    private static func repeating<T>(initial: T, next: @escaping (T) -> Future<T>?) -> Future<Void> {
         let p = Promise<Void>()
 
         func inner(_ value: T) {

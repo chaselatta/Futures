@@ -27,7 +27,7 @@ public class Promise<Element>: Future<Element> {
     private let stateQueue = DispatchQueue(label: "com.futures.promise-state-queue", attributes: [], target: nil)
     
     /// a convenience method for accessing the internalState variable
-    private func withStateQueue(f: @noescape () -> Void) {
+    private func withStateQueue(f: () -> Void) {
         stateQueue.sync(execute: f)
     }
     
@@ -60,7 +60,7 @@ public class Promise<Element>: Future<Element> {
     private var sideEffects = [SideEffect]()
     
     /// a convenience mechanism for accessing the side effects
-    private func withSideEffectsQueue(f: @noescape () -> Void) {
+    private func withSideEffectsQueue(f: () -> Void) {
         sideEffectsQueue.sync(execute: f)
     }
     
@@ -139,7 +139,7 @@ public class Promise<Element>: Future<Element> {
     }
     
     @discardableResult
-    override func respond(_ f: (Result<Element>) -> Void) -> Future<Element> {
+    override func respond(_ f: @escaping (Result<Element>) -> Void) -> Future<Element> {
         withSideEffectsQueue {
             if let result = self.poll() {
                 f(result)
@@ -161,7 +161,7 @@ public class Promise<Element>: Future<Element> {
         proxyCancelAction()
     }
     
-    public override func map<T>(transform: (Element) -> T) -> Future<T> {
+    public override func map<T>(transform: @escaping (Element) -> T) -> Future<T> {
         let p: Promise<T> = childPromise()
         respond {  result in
             switch result {
@@ -174,7 +174,7 @@ public class Promise<Element>: Future<Element> {
         return p
     }
     
-    public override func flatMap<T>(transform: (Element) -> Future<T>) -> Future<T> {
+    public override func flatMap<T>(transform: @escaping (Element) -> Future<T>) -> Future<T> {
         let outer: Promise<T> = childPromise()
         
         onSuccess {
@@ -186,7 +186,7 @@ public class Promise<Element>: Future<Element> {
         return outer
     }
     
-    public override func rescue(transform: (Error) -> Future<Element>) -> Future<Element> {
+    public override func rescue(transform: @escaping (Error) -> Future<Element>) -> Future<Element> {
         let outer: Promise<Element> = childPromise()
         
         onSuccess(execute: outer.succeed)

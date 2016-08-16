@@ -52,7 +52,7 @@ public class Future<Element> {
     ///
     /// - Parameter throwable: the function to execute to get the value
     /// - Returns: a satisfied or failed Future Future
-    public final class func throwable(throwable f: @noescape () throws -> Element) -> Future<Element> {
+    public final class func throwable(throwable f: () throws -> Element) -> Future<Element> {
         do {
             return .value(try f())
         } catch {
@@ -100,7 +100,7 @@ public class Future<Element> {
     /// - Parameter execute: the method to execute
     /// - Returns: a `Future` which can be used to chain on
     @discardableResult
-    public func onSuccess(execute: (Element) -> Void) -> Future {
+    public func onSuccess(execute: @escaping (Element) -> Void) -> Future {
         return respond {
             $0.withValue(execute: execute)
         }
@@ -110,7 +110,7 @@ public class Future<Element> {
     /// - Parameter execute: the method to execute
     /// - Returns: a `Future` which can be used to chain on
     @discardableResult
-    public func onError(execute f: (Error) -> Void) -> Future {
+    public func onError(execute f: @escaping (Error) -> Void) -> Future {
         return respond {
             $0.withError(execute: f)
         }
@@ -118,7 +118,7 @@ public class Future<Element> {
     
     /// Subclasses should override this method to handle sideeffects.
     @discardableResult
-    internal func respond(_ f: (Result<Element>) -> Void) -> Future {
+    internal func respond(_ f: @escaping (Result<Element>) -> Void) -> Future {
         fatalError("respond is an abstract method")
     }
     
@@ -127,21 +127,21 @@ public class Future<Element> {
     /// converts the successful future to a new Future
     /// - Parameter transform: the method to transform the given element
     /// - Returns: a transformed future
-    public func map<T>(transform: (Element) -> T) -> Future<T> {
+    public func map<T>(transform: @escaping (Element) -> T) -> Future<T> {
         fatalError("map is abstract")
     }
     
     /// converts the successful future to a flattened Future
     /// - Parameter transform: the method to transform the given element
     /// - Returns: a transformed future
-    public func flatMap<T>(transform: (Element) -> Future<T>) -> Future<T> {
+    public func flatMap<T>(transform: @escaping (Element) -> Future<T>) -> Future<T> {
         fatalError("flatMap is abstract")
     }
     
     /// executes the given transform upon failure of the future
     /// - Parameter transform: the method to transform the given error
     /// - Returns: a transformed future
-    public func rescue(transform: (Error) -> Future<Element>) -> Future<Element> {
+    public func rescue(transform: @escaping (Error) -> Future<Element>) -> Future<Element> {
         fatalError("rescue is abstract")
     }
     
